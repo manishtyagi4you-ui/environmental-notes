@@ -166,7 +166,7 @@
   /* ── TABLE ── */
   .styled-table {
     width:100%; border-collapse:collapse; border-radius:12px;
-    overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.08);
+    overflow-x:auto; display:block; box-shadow:0 2px 12px rgba(0,0,0,.08);
     margin-top:12px;
   }
   .styled-table th {
@@ -297,6 +297,12 @@
   .tl-content h4 { font-size:.95rem; font-weight:700; margin-bottom:6px; }
   .tl-content p  { font-size:.85rem; color:var(--muted); }
 
+  /* ── CREATOR BADGE ── */
+  .creator-badge {
+    position:absolute; top:16px; right:20px; z-index:10;
+    display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+  }
+
   /* ── RESPONSIVE ── */
   @media(max-width:768px){
     .hero h1 { font-size:clamp(1.5rem,6vw,2.5rem); }
@@ -316,6 +322,12 @@
     .flow-h .flow-arrow { transform:rotate(90deg); margin: 6px 0; }
     
     .iucn-ladder .iucn-rung { width: 100% !important; min-width: unset; max-width: 320px; }
+
+    .creator-badge {
+      position:relative; top:0; right:0;
+      align-items:center; justify-content:center;
+      margin-bottom:16px;
+    }
   }
 
   @media(max-width:480px){

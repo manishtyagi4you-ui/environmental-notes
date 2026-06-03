@@ -60,20 +60,11 @@
   });
 
   const navLinks = document.querySelectorAll('.nav-wrap a');
-  window.addEventListener('scroll', () => {
-    const pos = window.scrollY + 120;
-    navLinks.forEach(link => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        const top = target.offsetTop;
-        const bot = top + target.offsetHeight;
-        if (pos >= top && pos < bot) {
-          link.style.background = 'rgba(255,255,255,.18)';
-          link.style.color = '#fff';
-        } else {
-          link.style.background = '';
-          link.style.color = '';
-        }
-      }
-    });
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if (href === currentPath) {
+      link.style.background = 'rgba(255,255,255,.18)';
+      link.style.color = '#fff';
+    }
   });

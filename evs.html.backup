@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Environmental Science – Complete Notes</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --u1:#2ecc71; --u2:#3498db; --u3:#9b59b6; --u4:#e74c3c;
+    --u5:#f39c12; --u6:#1abc9c; --u7:#e67e22; --u8:#2980b9;
+    --dark:#1a1a2e; --card:#ffffff; --text:#2d3436; --muted:#636e72;
+    --radius:16px; --shadow:0 8px 32px rgba(0,0,0,.12);
+    --font:'Segoe UI',system-ui,sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    min-height:100vh; color:var(--text);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align:center; padding:60px 20px 40px;
+    background:linear-gradient(135deg,#1a1a2e 0%,#16213e 60%,#0f3460 100%);
+    color:#fff; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='28'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events:none;
+  }
+  .hero-icon { font-size:72px; display:block; margin-bottom:16px;
+    animation:float 3s ease-in-out infinite; }
+  @keyframes float {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)}
+  }
+  .hero h1 { font-size:clamp(1.8rem,5vw,3rem); font-weight:800; letter-spacing:-1px;
+    background:linear-gradient(90deg,#74ebd5,#acb6e5);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .hero p  { margin-top:10px; font-size:1.1rem; color:#a0aec0; }
+  .badge-row { display:flex; flex-wrap:wrap; justify-content:center;
+    gap:10px; margin-top:24px; }
+  .badge {
+    padding:6px 16px; border-radius:30px; font-size:.82rem;
+    font-weight:700; color:#fff; letter-spacing:.5px;
+    backdrop-filter:blur(6px);
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position:fixed; top:0; left:0; height:4px;
+    background:linear-gradient(90deg,#74ebd5,#acb6e5);
+    z-index:9999; width:0%; transition:width .2s;
+  }
+
+  /* ── NAV ── */
+  .nav-wrap {
+    position:sticky; top:0; z-index:100;
+    background:rgba(26,26,46,.96); backdrop-filter:blur(12px);
+    padding:10px 20px; overflow-x:auto;
+    display:flex; gap:8px; align-items:center;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .nav-wrap a {
+    white-space:nowrap; padding:7px 14px; border-radius:20px;
+    font-size:.82rem; font-weight:600; color:#a0aec0;
+    text-decoration:none; transition:.2s;
+  }
+  .nav-wrap a:hover { color:#fff; background:rgba(255,255,255,.12); }
+  .nav-title { color:#fff; font-weight:700; font-size:.9rem;
+    margin-right:8px; white-space:nowrap; }
+
+  /* ── MAIN WRAPPER ── */
+  .wrapper { max-width:1100px; margin:0 auto; padding:32px 16px 80px; }
+
+  /* ── UNIT CARD ── */
+  .unit-card {
+    background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow); margin-bottom:40px;
+    overflow:hidden; transition:transform .3s;
+  }
+  .unit-card:hover { transform:translateY(-4px); }
+  .unit-header {
+    display:flex; align-items:center; gap:16px;
+    padding:24px 28px; color:#fff; cursor:pointer;
+    user-select:none; position:relative;
+  }
+  .unit-num {
+    width:50px; height:50px; border-radius:12px;
+    background:rgba(255,255,255,.25); display:flex;
+    align-items:center; justify-content:center;
+    font-size:1.4rem; font-weight:800; flex-shrink:0;
+  }
+  .unit-header h2 { font-size:1.3rem; font-weight:700; flex:1; }
+  .unit-icon { font-size:1.8rem; }
+  .toggle-btn {
+    width:32px; height:32px; border-radius:50%;
+    background:rgba(255,255,255,.2); border:none;
+    color:#fff; font-size:1.1rem; cursor:pointer;
+    transition:transform .3s; display:flex;
+    align-items:center; justify-content:center;
+  }
+  .unit-body { padding:28px; display:block; }
+  .unit-body.collapsed { display:none; }
+
+  /* ── SECTION INSIDE UNIT ── */
+  .section { margin-bottom:28px; }
+  .section h3 {
+    font-size:1.05rem; font-weight:700; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+    color:var(--text);
+  }
+  .section h3 .s-icon { font-size:1.2rem; }
+
+  /* ── INFO GRID ── */
+  .info-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:14px; margin-top:12px;
+  }
+  .info-card {
+    border-radius:12px; padding:16px 14px; text-align:center;
+    border:2px solid transparent; transition:.2s;
+  }
+  .info-card:hover { transform:translateY(-3px); }
+  .info-card .ic-icon { font-size:2rem; display:block; margin-bottom:8px; }
+  .info-card .ic-label { font-size:.85rem; font-weight:600; }
+  .info-card .ic-sub { font-size:.75rem; color:var(--muted); margin-top:4px; }
+
+  /* ── FLOWCHART ── */
+  .flowchart {
+    display:flex; flex-direction:column; align-items:center;
+    gap:0; margin:16px auto; width:fit-content;
+  }
+  .flow-node {
+    padding:10px 28px; border-radius:30px; color:#fff;
+    font-weight:700; font-size:.9rem; text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.15); min-width:160px;
+    transition:.2s;
+  }
+  .flow-node:hover { transform:scale(1.05); }
+  .flow-arrow {
+    font-size:1.4rem; color:var(--muted); line-height:1.2;
+    margin:2px 0;
+  }
+
+  /* ── HORIZONTAL FLOWCHART ── */
+  .flow-h {
+    display:flex; align-items:center; flex-wrap:wrap;
+    gap:0; margin:16px auto; justify-content:center;
+  }
+  .flow-h .flow-node { min-width:120px; }
+  .flow-h .flow-arrow { margin:0 4px; }
+
+  /* ── MEMORY BOX ── */
+  .memory-box {
+    border-radius:12px; padding:18px 20px; margin:16px 0;
+    border-left:5px solid; position:relative; overflow:hidden;
+  }
+  .memory-box::before {
+    content:'💡'; position:absolute; right:16px; top:50%;
+    transform:translateY(-50%); font-size:2.5rem; opacity:.15;
+  }
+  .memory-box .mb-title {
+    font-size:.78rem; font-weight:800; letter-spacing:1px;
+    text-transform:uppercase; margin-bottom:6px;
+  }
+  .memory-box .mb-content { font-size:.95rem; font-weight:600; }
+
+  /* ── TABLE ── */
+  .styled-table {
+    width:100%; border-collapse:collapse; border-radius:12px;
+    overflow:hidden; box-shadow:0 2px 12px rgba(0,0,0,.08);
+    margin-top:12px;
+  }
+  .styled-table th {
+    padding:12px 16px; text-align:left; color:#fff;
+    font-size:.88rem;
+  }
+  .styled-table td {
+    padding:11px 16px; font-size:.88rem; border-bottom:1px solid #f0f0f0;
+  }
+  .styled-table tr:last-child td { border-bottom:none; }
+  .styled-table tr:hover td { background:#f8f9ff; }
+
+  /* ── TAGS ── */
+  .tag-list { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .tag {
+    padding:5px 14px; border-radius:20px; font-size:.82rem;
+    font-weight:600; color:#fff;
+  }
+
+  /* ── EFFECT CARDS ── */
+  .effect-row {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px; margin-top:12px;
+  }
+  .effect-card {
+    border-radius:12px; padding:18px;
+    border-left:4px solid; background:#fafafa;
+  }
+  .effect-card .ec-icon { font-size:1.6rem; margin-bottom:8px; display:block; }
+  .effect-card .ec-title { font-weight:700; font-size:.9rem; margin-bottom:6px; }
+  .effect-card ul { padding-left:16px; }
+  .effect-card li { font-size:.85rem; margin-bottom:4px; color:var(--muted); }
+
+  /* ── SCALE PYRAMID ── */
+  .pyramid {
+    display:flex; flex-direction:column; align-items:center;
+    gap:4px; margin:16px auto; width:fit-content;
+  }
+  .pyr-level {
+    display:flex; align-items:center; justify-content:center;
+    border-radius:8px; color:#fff; font-weight:700;
+    font-size:.88rem; transition:.2s;
+  }
+  .pyr-level:hover { transform:scaleX(1.04); }
+
+  /* ── CIRCULAR BADGE ── */
+  .circular-badges {
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:16px; margin:16px 0;
+  }
+  .c-badge {
+    width:100px; height:100px; border-radius:50%;
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:center; color:#fff; font-weight:700;
+    font-size:.78rem; text-align:center; padding:8px;
+    box-shadow:0 4px 16px rgba(0,0,0,.15); transition:.2s;
+    border:3px solid rgba(255,255,255,.3);
+  }
+  .c-badge:hover { transform:scale(1.08); }
+  .c-badge .cb-icon { font-size:1.6rem; margin-bottom:4px; }
+
+  /* ── QUICK REVISION ── */
+  .qr-grid {
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+  }
+  .qr-card {
+    border-radius:14px; padding:20px 16px; text-align:center;
+    color:#fff; transition:.2s; cursor:pointer; text-decoration:none;
+    display:block;
+  }
+  .qr-card:hover { transform:translateY(-5px) scale(1.02);
+    box-shadow:0 12px 32px rgba(0,0,0,.2); }
+  .qr-card .qrc-num { font-size:2rem; font-weight:800; opacity:.3;
+    line-height:1; }
+  .qr-card .qrc-icon { font-size:2rem; display:block; margin:4px 0; }
+  .qr-card .qrc-label { font-size:.85rem; font-weight:700; }
+
+  /* ── FORMULA BOX ── */
+  .formula-box {
+    text-align:center; padding:20px; border-radius:14px;
+    background:linear-gradient(135deg,#f8f9ff,#e8ecff);
+    border:2px dashed #7c83fd; margin:16px 0;
+  }
+  .formula-box .formula-text {
+    font-size:1.2rem; font-weight:800; color:#5c6bc0;
+  }
+
+  /* ── COMPARE TABLE ── */
+  .compare-row {
+    display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px;
+  }
+  .compare-card {
+    border-radius:12px; padding:18px;
+  }
+  .compare-card h4 {
+    display:flex; align-items:center; gap:6px;
+    font-size:.92rem; margin-bottom:10px;
+  }
+  .compare-card ul { padding-left:18px; }
+  .compare-card li { font-size:.85rem; margin-bottom:5px; }
+
+  /* ── TREATY TIMELINE ── */
+  .timeline {
+    position:relative; padding-left:36px; margin-top:16px;
+  }
+  .timeline::before {
+    content:''; position:absolute; left:14px; top:0; bottom:0;
+    width:3px; background:linear-gradient(180deg,#74ebd5,#acb6e5);
+    border-radius:2px;
+  }
+  .tl-item { position:relative; margin-bottom:24px; }
+  .tl-dot {
+    width:28px; height:28px; border-radius:50%;
+    position:absolute; left:-36px; top:4px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.82rem; font-weight:800; color:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.2);
+  }
+  .tl-year {
+    font-size:.75rem; font-weight:800; letter-spacing:1px;
+    text-transform:uppercase; margin-bottom:4px;
+  }
+  .tl-content {
+    background:#f8f9ff; border-radius:10px; padding:14px 16px;
+    border-left:4px solid;
+  }
+  .tl-content h4 { font-size:.95rem; font-weight:700; margin-bottom:6px; }
+  .tl-content p  { font-size:.85rem; color:var(--muted); }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:600px){
+    .compare-row { grid-template-columns:1fr; }
+    .flow-h { flex-direction:column; }
+    .flow-h .flow-arrow { transform:rotate(90deg); }
+    .unit-header h2 { font-size:1.05rem; }
+  }
+
+  /* ── UTILITY COLOURS ── */
+  .bg-u1{background:var(--u1)} .bg-u2{background:var(--u2)}
+  .bg-u3{background:var(--u3)} .bg-u4{background:var(--u4)}
+  .bg-u5{background:var(--u5)} .bg-u6{background:var(--u6)}
+  .bg-u7{background:var(--u7)} .bg-u8{background:var(--u8)}
+
+  .border-u1{border-color:var(--u1)} .border-u2{border-color:var(--u2)}
+  .border-u3{border-color:var(--u3)} .border-u4{border-color:var(--u4)}
+  .border-u5{border-color:var(--u5)} .border-u6{border-color:var(--u6)}
+  .border-u7{border-color:var(--u7)} .border-u8{border-color:var(--u8)}
+
+  .text-u1{color:var(--u1)} .text-u2{color:var(--u2)}
+  .text-u3{color:var(--u3)} .text-u4{color:var(--u4)}
+  .text-u5{color:var(--u5)} .text-u6{color:var(--u6)}
+  .text-u7{color:var(--u7)} .text-u8{color:var(--u8)}
+
+  .light-u1{background:#eafaf1;border-color:var(--u1)}
+  .light-u2{background:#eaf4fb;border-color:var(--u2)}
+  .light-u3{background:#f5eef8;border-color:var(--u3)}
+  .light-u4{background:#fdf2f2;border-color:var(--u4)}
+  .light-u5{background:#fef9e7;border-color:var(--u5)}
+  .light-u6{background:#e8f8f5;border-color:var(--u6)}
+  .light-u7{background:#fef5e7;border-color:var(--u7)}
+  .light-u8{background:#eaf2fb;border-color:var(--u8)}
+
+  /* ── IMPORTANT NOTES SECTION STYLES ── */
+  .imp-section-header {
+    text-align:center; padding:50px 20px 30px;
+    position:relative;
+  }
+  .imp-section-header h2 {
+    font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900;
+    color:#fff; letter-spacing:-1px;
+  }
+  .imp-section-header p {
+    color:rgba(255,255,255,.75); margin-top:8px; font-size:1rem;
+  }
+  .imp-banner {
+    background:linear-gradient(135deg,#f6d365 0%,#fda085 100%);
+    border-radius:var(--radius); padding:20px 28px;
+    margin-bottom:32px; display:flex; align-items:center; gap:16px;
+    box-shadow:var(--shadow);
+  }
+  .imp-banner-icon { font-size:2.5rem; flex-shrink:0; }
+  .imp-banner-text h3 { font-size:1.15rem; font-weight:800; color:#7b3f00; }
+  .imp-banner-text p  { font-size:.88rem; color:#8b4513; margin-top:4px; }
+
+  /* imp unit card */
+  .imp-unit-card {
+    background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow); margin-bottom:36px; overflow:hidden;
+  }
+  .imp-unit-header {
+    display:flex; align-items:center; gap:14px;
+    padding:20px 26px; color:#fff; cursor:pointer; user-select:none;
+  }
+  .imp-unit-badge {
+    padding:6px 14px; border-radius:20px;
+    background:rgba(255,255,255,.25); font-size:.78rem;
+    font-weight:800; letter-spacing:.5px; white-space:nowrap;
+  }
+  .imp-unit-header h3 { font-size:1.1rem; font-weight:700; flex:1; }
+  .imp-unit-body { padding:26px; display:block; }
+  .imp-unit-body.collapsed { display:none; }
+
+  /* imp topic block */
+  .imp-topic {
+    border-radius:12px; border:1px solid #eee;
+    margin-bottom:20px; overflow:hidden;
+  }
+  .imp-topic-head {
+    padding:13px 18px; font-weight:700; font-size:.95rem;
+    display:flex; align-items:center; gap:8px; color:#fff;
+  }
+  .imp-topic-body { padding:16px 18px; background:#fafafa; }
+  .imp-topic-body p { font-size:.88rem; color:var(--text); line-height:1.7; margin-bottom:8px; }
+  .imp-topic-body ul { padding-left:20px; margin-bottom:8px; }
+  .imp-topic-body ul li { font-size:.87rem; color:var(--muted); margin-bottom:5px; line-height:1.6; }
+  .imp-topic-body strong { color:var(--text); }
+
+  /* pos neg grid */
+  .pos-neg-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px;
+  }
+  .pos-card {
+    background:#eafaf1; border-left:4px solid var(--u1);
+    border-radius:10px; padding:14px;
+  }
+  .neg-card {
+    background:#fdf2f2; border-left:4px solid var(--u4);
+    border-radius:10px; padding:14px;
+  }
+  .pos-card h5,.neg-card h5 {
+    font-size:.82rem; font-weight:800; margin-bottom:8px;
+    text-transform:uppercase; letter-spacing:.5px;
+  }
+  .pos-card h5 { color:var(--u1); }
+  .neg-card h5 { color:var(--u4); }
+  .pos-card li,.neg-card li { font-size:.83rem; color:var(--muted); margin-bottom:4px; }
+
+  /* hippo box */
+  .hippo-box {
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    border-radius:14px; padding:20px 24px; color:#fff; margin:12px 0;
+  }
+  .hippo-box h4 { font-size:1rem; font-weight:800; margin-bottom:12px; }
+  .hippo-row { display:flex; flex-wrap:wrap; gap:10px; }
+  .hippo-item {
+    background:rgba(255,255,255,.15); border-radius:10px;
+    padding:10px 14px; text-align:center; min-width:90px;
+    backdrop-filter:blur(4px);
+  }
+  .hippo-item .hi-letter { font-size:1.5rem; font-weight:900; display:block; }
+  .hippo-item .hi-word   { font-size:.75rem; margin-top:2px; }
+
+  /* quick rev strip */
+  .qr-strip {
+    background:linear-gradient(135deg,#1a1a2e,#16213e);
+    border-radius:12px; padding:16px 20px; margin-top:16px;
+  }
+  .qr-strip h4 {
+    color:#74ebd5; font-size:.85rem; font-weight:800;
+    letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;
+  }
+  .qr-strip ul { padding-left:0; list-style:none; }
+  .qr-strip li {
+    color:rgba(255,255,255,.85); font-size:.85rem;
+    padding:5px 0; border-bottom:1px solid rgba(255,255,255,.06);
+    display:flex; align-items:center; gap:8px;
+  }
+  .qr-strip li:last-child { border-bottom:none; }
+
+  /* exam q box */
+  .exam-q-box {
+    background:linear-gradient(135deg,#fff9e6,#fff3cc);
+    border:2px solid #f39c12; border-radius:12px;
+    padding:16px 18px; margin:10px 0;
+  }
+  .exam-q-box .eq-label {
+    font-size:.75rem; font-weight:800; color:#e67e22;
+    letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;
+  }
+  .exam-q-box .eq-q { font-size:.9rem; font-weight:700; color:var(--text); margin-bottom:8px; }
+  .exam-q-box .eq-a { font-size:.85rem; color:var(--muted); line-height:1.6; }
+
+  /* imp flowchart (compact) */
+  .imp-flow {
+    display:flex; flex-direction:column; align-items:center;
+    gap:0; margin:12px auto; width:fit-content;
+  }
+  .imp-flow-node {
+    padding:8px 22px; border-radius:24px; color:#fff;
+    font-weight:700; font-size:.85rem; text-align:center;
+    box-shadow:0 3px 10px rgba(0,0,0,.12); min-width:140px;
+    transition:.2s;
+  }
+  .imp-flow-node:hover { transform:scale(1.05); }
+  .imp-flow-arrow { font-size:1.2rem; color:var(--muted); line-height:1.1; margin:2px 0; }
+
+  /* iucn ladder */
+  .iucn-ladder {
+    display:flex; flex-direction:column; align-items:center;
+    gap:4px; margin:12px auto;
+  }
+  .iucn-rung {
+    display:flex; align-items:center; justify-content:center;
+    border-radius:8px; color:#fff; font-weight:700;
+    font-size:.85rem; padding:9px 20px; min-width:220px;
+    transition:.2s; cursor:default;
+  }
+  .iucn-rung:hover { transform:scaleX(1.04); }
+
+  /* 10-mark questions section */
+  .tenmark-wrap {
+    background:#fff; border-radius:var(--radius);
+    box-shadow:var(--shadow); margin-bottom:40px; overflow:hidden;
+  }
+  .tenmark-header {
+    background:linear-gradient(135deg,#f6d365,#fda085);
+    padding:22px 28px; display:flex; align-items:center; gap:14px;
+    cursor:pointer; user-select:none;
+  }
+  .tenmark-header h2 { font-size:1.2rem; font-weight:800; color:#7b3f00; flex:1; }
+  .tenmark-body { padding:26px; display:block; }
+  .tenmark-body.collapsed { display:none; }
+  .tenmark-unit-block { margin-bottom:24px; }
+  .tenmark-unit-title {
+    font-size:.9rem; font-weight:800; text-transform:uppercase;
+    letter-spacing:1px; margin-bottom:12px;
+    display:flex; align-items:center; gap:8px; padding-bottom:8px;
+    border-bottom:2px solid #f0f0f0;
+  }
+  .tenmark-q-list { counter-reset:qcount; padding-left:0; list-style:none; }
+  .tenmark-q-list li {
+    counter-increment:qcount;
+    display:flex; align-items:flex-start; gap:12px;
+    padding:10px 14px; border-radius:10px; margin-bottom:8px;
+    background:#f8f9ff; border-left:4px solid;
+    font-size:.88rem; font-weight:600; color:var(--text);
+    transition:.2s;
+  }
+  .tenmark-q-list li:hover { background:#eef0ff; }
+  .tenmark-q-list li::before {
+    content:counter(qcount);
+    width:24px; height:24px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:.78rem; font-weight:800; color:#fff;
+    flex-shrink:0; margin-top:1px;
+  }
+
+  /* scroll-top */
+  #scrollTop {
+    position:fixed; bottom:24px; right:24px;
+    width:46px; height:46px; border-radius:50%;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    color:#fff; border:none; font-size:1.2rem; cursor:pointer;
+    box-shadow:0 4px 16px rgba(0,0,0,.3); display:none;
+    align-items:center; justify-content:center; z-index:999;
+    transition:.3s;
+  }
+  #scrollTop:hover { transform:scale(1.1); }
+
+  /* divider */
+  .section-divider {
+    display:flex; align-items:center; gap:16px;
+    margin:40px 0 32px; color:#fff;
+  }
+  .section-divider::before,.section-divider::after {
+    content:''; flex:1; height:2px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);
+  }
+  .section-divider span {
+    background:rgba(255,255,255,.15); padding:8px 20px;
+    border-radius:20px; font-size:.9rem; font-weight:700;
+    white-space:nowrap; border:1px solid rgba(255,255,255,.2);
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <span class="hero-icon">🌍</span>
+  <h1>Environmental Science</h1>
+  <p>Complete Notes · 8 Units · Exam-Ready with Memory Tricks &amp; Diagrams</p>
+  <div class="badge-row">
+    <span class="badge" style="background:var(--u1)">🌿 Unit 1 – History</span>
+    <span class="badge" style="background:var(--u2)">💧 Unit 2 – Resources</span>
+    <span class="badge" style="background:var(--u3)">🌳 Unit 3 – Ecosystems</span>
+    <span class="badge" style="background:var(--u4)">☁️ Unit 4 – Pollution</span>
+    <span class="badge" style="background:var(--u5)">🌐 Unit 5 – Issues</span>
+    <span class="badge" style="background:var(--u6)">🌡️ Unit 6 – Climate</span>
+    <span class="badge" style="background:var(--u7)">⚙️ Unit 7 – Management</span>
+    <span class="badge" style="background:var(--u8)">📜 Unit 8 – Treaties</span>
+    <span class="badge" style="background:linear-gradient(135deg,#f6d365,#fda085);color:#7b3f00">⭐ Important Notes</span>
+  </div>
+</div>
+
+<!-- ═══ STICKY NAV ═══ -->
+<nav class="nav-wrap">
+  <span class="nav-title">📚 Jump to:</span>
+  <a href="#unit1">🌿 History</a>
+  <a href="#unit2">💧 Resources</a>
+  <a href="#unit3">🌳 Ecosystems</a>
+  <a href="#unit4">☁️ Pollution</a>
+  <a href="#unit5">🌐 Issues</a>
+  <a href="#unit6">🌡️ Climate</a>
+  <a href="#unit7">⚙️ Mgmt</a>
+  <a href="#unit8">📜 Treaties</a>
+  <a href="#impnotes">⭐ Imp Notes</a>
+  <a href="#tenmark">🎯 10-Mark Qs</a>
+  <a href="#quickrev">⚡ Quick Rev</a>
+</nav>
+
+<div class="wrapper">
+
+<!-- ═══════════════════════════════════════════
+     UNIT 1
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit1">
+  <div class="unit-header bg-u1" onclick="toggleUnit(this)">
+    <div class="unit-num">01</div>
+    <span class="unit-icon">🌿</span>
+    <h2>Historical Human–Environment Interactions</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">🌍</span> What is Environment?</h3>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:12px">Everything around us — living and non-living — that affects life on Earth.</p>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+          <h4 style="color:var(--u1)">🌱 Biotic (Living)</h4>
+          <ul><li>🌲 Plants</li><li>🐘 Animals</li><li>👤 Humans</li><li>🦠 Microorganisms</li></ul>
+        </div>
+        <div class="compare-card" style="background:#eaf4fb;border-left:4px solid var(--u2)">
+          <h4 style="color:var(--u2)">💎 Abiotic (Non-Living)</h4>
+          <ul><li>💨 Air</li><li>💧 Water</li><li>🪨 Soil</li><li>☀️ Sunlight</li></ul>
+        </div>
+      </div>
+      <div class="memory-box" style="background:#eafaf1;border-color:var(--u1)">
+        <div class="mb-title text-u1">🧠 Memory Trick</div>
+        <div class="mb-content">Environment = Our Earth's Neighborhood 🏘️</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🚶</span> The Human Journey Through Time</h3>
+      <div class="flowchart">
+        <div class="flow-node bg-u1">🏹 Hunter-Gatherer Stage</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#27ae60">🔥 Discovery of Fire</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#f39c12">🌾 Agricultural Revolution (~10,000 yrs ago)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#e67e22">🏘️ Permanent Settlements</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#8e44ad">🏛️ Civilizations</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#c0392b">🏭 Industrial Revolution</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#2980b9">♻️ Sustainability Era (Today)</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🔥</span> Discovery of Fire – Benefits</h3>
+      <div class="info-grid">
+        <div class="info-card light-u1"><span class="ic-icon">🍖</span><div class="ic-label">Cooking Food</div><div class="ic-sub">Better nutrition</div></div>
+        <div class="info-card light-u1"><span class="ic-icon">🛡️</span><div class="ic-label">Protection</div><div class="ic-sub">Kept predators away</div></div>
+        <div class="info-card light-u1"><span class="ic-icon">🌡️</span><div class="ic-label">Warmth</div><div class="ic-sub">Survived cold climates</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🌾</span> Agricultural Revolution – Effects on Environment</h3>
+      <div class="effect-row">
+        <div class="effect-card light-u4"><span class="ec-icon">🌲</span><div class="ec-title text-u4">Deforestation</div><ul><li>Forests cleared for farmland</li><li>Habitat loss began</li></ul></div>
+        <div class="effect-card light-u5"><span class="ec-icon">👨‍👩‍👧‍👦</span><div class="ec-title text-u5">Population Boom</div><ul><li>More food = more people</li><li>Villages formed</li></ul></div>
+        <div class="effect-card light-u2"><span class="ec-icon">💧</span><div class="ec-title text-u2">Water Use</div><ul><li>Irrigation started</li><li>Rivers diverted</li></ul></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🏭</span> Industrial Revolution – Key Effects</h3>
+      <div class="info-grid">
+        <div class="info-card light-u4"><span class="ic-icon">🏭</span><div class="ic-label">Factories</div><div class="ic-sub">Mass production</div></div>
+        <div class="info-card light-u4"><span class="ic-icon">⛏️</span><div class="ic-label">Coal Mining</div><div class="ic-sub">Fossil fuel era</div></div>
+        <div class="info-card light-u4"><span class="ic-icon">💨</span><div class="ic-label">Pollution Spike</div><div class="ic-sub">Air &amp; water polluted</div></div>
+        <div class="info-card light-u4"><span class="ic-icon">🚂</span><div class="ic-label">Steam Engines</div><div class="ic-sub">Coal-powered transport</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">♻️</span> Sustainability</h3>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:12px">Using resources wisely today without harming the ability of future generations to meet their needs.</p>
+      <div class="formula-box">
+        <div style="font-size:.85rem;color:var(--muted);margin-bottom:6px">The Sustainability Formula</div>
+        <div class="formula-text">🌱 Development + 🌍 Conservation = ♻️ Sustainability</div>
+      </div>
+      <div class="info-grid">
+        <div class="info-card light-u1"><span class="ic-icon">☀️</span><div class="ic-label">Solar Energy</div><div class="ic-sub">Instead of coal</div></div>
+        <div class="info-card light-u1"><span class="ic-icon">🌲</span><div class="ic-label">Afforestation</div><div class="ic-sub">Replanting forests</div></div>
+        <div class="info-card light-u1"><span class="ic-icon">🔄</span><div class="ic-label">Recycling</div><div class="ic-sub">Reduce waste</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 2
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit2">
+  <div class="unit-header bg-u2" onclick="toggleUnit(this)">
+    <div class="unit-num">02</div>
+    <span class="unit-icon">💧</span>
+    <h2>Natural Resources</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">🗂️</span> Classification Tree</h3>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:16px">Natural resources = materials from nature useful to humans.</p>
+      <div style="overflow-x:auto">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0;min-width:520px">
+        <div class="flow-node bg-u2" style="margin-bottom:0">🌍 Natural Resources</div>
+        <div style="display:flex;width:340px;justify-content:space-between;height:30px;position:relative">
+          <div style="width:1px;background:#3498db;margin-left:84px;height:100%"></div>
+          <div style="width:1px;background:#9b59b6;margin-right:84px;height:100%"></div>
+          <div style="position:absolute;top:0;left:84px;right:84px;height:1px;background:#bbb"></div>
+        </div>
+        <div style="display:flex;gap:60px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div class="flow-node" style="background:var(--u1);min-width:140px">🌱 Biotic (Living)</div>
+            <div class="tag-list" style="flex-direction:column;align-items:center">
+              <span class="tag" style="background:#27ae60">🌲 Forests</span>
+              <span class="tag" style="background:#27ae60">🐾 Animals</span>
+              <span class="tag" style="background:#27ae60">🌿 Plants</span>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+            <div class="flow-node" style="background:var(--u3);min-width:140px">💎 Abiotic (Non-Living)</div>
+            <div class="tag-list" style="flex-direction:column;align-items:center">
+              <span class="tag" style="background:#8e44ad">💧 Water</span>
+              <span class="tag" style="background:#8e44ad">💨 Air</span>
+              <span class="tag" style="background:#8e44ad">⛏️ Minerals</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">⚡</span> Renewable vs Non-Renewable</h3>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+          <h4 style="color:var(--u1)">♻️ Renewable Resources</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Naturally replenished — never run out!</p>
+          <div class="tag-list"><span class="tag bg-u1">☀️ Solar</span><span class="tag bg-u1">💨 Wind</span><span class="tag bg-u1">💧 Hydro</span><span class="tag bg-u1">🌲 Forests</span></div>
+        </div>
+        <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+          <h4 style="color:var(--u4)">⚠️ Non-Renewable Resources</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Limited quantity — will run out!</p>
+          <div class="tag-list"><span class="tag bg-u4">⛏️ Coal</span><span class="tag bg-u4">🛢️ Petroleum</span><span class="tag bg-u4">🔥 Natural Gas</span></div>
+        </div>
+      </div>
+      <div class="memory-box" style="background:#fff9e6;border-color:var(--u5)">
+        <div class="mb-title text-u5">🧠 Memory Trick</div>
+        <div class="mb-content">☀️ Sun = Renewable &nbsp;|&nbsp; ⛏️ Coal = Non-Renewable</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🔍</span> Key Resources – Problems &amp; Importance</h3>
+      <table class="styled-table">
+        <thead><tr><th class="bg-u2">Resource</th><th class="bg-u2">Icon</th><th class="bg-u2">Importance</th><th class="bg-u2">Threats</th></tr></thead>
+        <tbody>
+          <tr><td><b>Water</b></td><td>💧</td><td>Life, Agriculture, Industry</td><td>Overuse, Pollution, Scarcity</td></tr>
+          <tr><td><b>Soil</b></td><td>🪨</td><td>Plant growth, Nutrients, Water storage</td><td>Erosion, Overgrazing, Deforestation</td></tr>
+          <tr><td><b>Minerals</b></td><td>⛏️</td><td>Construction, Electronics, Industry</td><td>Habitat loss, Land degradation</td></tr>
+          <tr><td><b>Forests</b></td><td>🌲</td><td>Oxygen, Biodiversity, Climate</td><td>Logging, Agriculture expansion</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">⚡</span> Energy Resources</h3>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#fef5e7;border-left:4px solid var(--u7)">
+          <h4 style="color:var(--u7)">🏭 Conventional Energy</h4>
+          <div class="tag-list"><span class="tag bg-u7">⛏️ Coal</span><span class="tag bg-u7">🛢️ Petroleum</span><span class="tag bg-u7">🔥 Natural Gas</span></div>
+        </div>
+        <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+          <h4 style="color:var(--u1)">🌱 Non-Conventional Energy</h4>
+          <div class="tag-list"><span class="tag bg-u1">☀️ Solar</span><span class="tag bg-u1">💨 Wind</span><span class="tag bg-u1">🌊 Hydro</span><span class="tag bg-u1">🌿 Biomass</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 3
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit3">
+  <div class="unit-header bg-u3" onclick="toggleUnit(this)">
+    <div class="unit-num">03</div>
+    <span class="unit-icon">🌳</span>
+    <h2>Ecosystems and Biodiversity</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">🔄</span> Energy Flow in an Ecosystem</h3>
+      <div class="flowchart">
+        <div class="flow-node" style="background:#f39c12">☀️ Sun (Energy Source)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u1">🌿 Producers (Plants)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#3498db">🐰 Primary Consumers (Herbivores)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u4">🦊 Secondary Consumers (Carnivores)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#8e44ad">🦁 Apex Predators</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#795548">🍄 Decomposers (Fungi &amp; Bacteria)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u1" style="font-size:.8rem">♻️ Nutrients returned to Soil</div>
+      </div>
+      <div class="memory-box" style="background:#f5eef8;border-color:var(--u3)">
+        <div class="mb-title text-u3">🧠 Food Chain Example</div>
+        <div class="mb-content">🌾 Grass → 🐰 Rabbit → 🦊 Fox → 🍄 Decomposer</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🌈</span> Types of Biodiversity</h3>
+      <div class="info-grid">
+        <div class="info-card light-u3"><span class="ic-icon">🧬</span><div class="ic-label">Genetic Diversity</div><div class="ic-sub">Differences within a species<br>Example: Mango varieties</div></div>
+        <div class="info-card light-u3"><span class="ic-icon">🐯</span><div class="ic-label">Species Diversity</div><div class="ic-sub">Different species together<br>Example: Tiger, Deer, Elephant</div></div>
+        <div class="info-card light-u3"><span class="ic-icon">🌏</span><div class="ic-label">Ecosystem Diversity</div><div class="ic-sub">Different ecosystems<br>Example: Forest, Desert, Ocean</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">💡</span> Why Biodiversity Matters</h3>
+      <div class="circular-badges">
+        <div class="c-badge bg-u1"><span class="cb-icon">🍎</span>Food &amp; Crops</div>
+        <div class="c-badge bg-u2"><span class="cb-icon">💊</span>Medicines</div>
+        <div class="c-badge bg-u3"><span class="cb-icon">🐝</span>Pollination</div>
+        <div class="c-badge bg-u5"><span class="cb-icon">🌡️</span>Climate Reg.</div>
+        <div class="c-badge bg-u6"><span class="cb-icon">⚖️</span>Eco Balance</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🛡️</span> Conservation Strategies</h3>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+          <h4 style="color:var(--u1)">🏞️ In-Situ Conservation</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Protection IN the natural habitat.</p>
+          <ul><li>🏕️ National Parks</li><li>🦁 Wildlife Sanctuaries</li><li>🌿 Biosphere Reserves</li></ul>
+        </div>
+        <div class="compare-card" style="background:#f5eef8;border-left:4px solid var(--u3)">
+          <h4 style="color:var(--u3)">🏛️ Ex-Situ Conservation</h4>
+          <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Protection OUTSIDE the natural habitat.</p>
+          <ul><li>🦓 Zoos &amp; Aquariums</li><li>🌺 Botanical Gardens</li><li>🌱 Seed Banks</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 4
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit4">
+  <div class="unit-header bg-u4" onclick="toggleUnit(this)">
+    <div class="unit-num">04</div>
+    <span class="unit-icon">☁️</span>
+    <h2>Pollution and Health</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">🔍</span> Three Major Types of Pollution</h3>
+      <div class="effect-row">
+        <div class="effect-card" style="background:#fdf2f2;border-color:var(--u4)"><span class="ec-icon">💨</span><div class="ec-title text-u4">Air Pollution</div><ul><li><b>Sources:</b> Vehicles, Factories, Burning fuels</li><li><b>Pollutants:</b> CO₂, SO₂, NOx, Smoke</li><li><b>Effects:</b> Asthma, Lung disease, Global warming</li></ul></div>
+        <div class="effect-card" style="background:#eaf4fb;border-color:var(--u2)"><span class="ec-icon">💧</span><div class="ec-title text-u2">Water Pollution</div><ul><li><b>Sources:</b> Sewage, Industrial waste, Oil spills</li><li><b>Effects:</b> Cholera, Typhoid, Aquatic death</li></ul></div>
+        <div class="effect-card" style="background:#fef5e7;border-color:var(--u7)"><span class="ec-icon">🪨</span><div class="ec-title text-u7">Soil Pollution</div><ul><li><b>Sources:</b> Pesticides, Plastic, Chemicals</li><li><b>Effects:</b> Reduced fertility, Toxic food</li></ul></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">♻️</span> The 3R Principle</h3>
+      <div class="flowchart">
+        <div class="flow-node bg-u1">📉 REDUCE — Use less in the first place</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u2">🔁 REUSE — Use items multiple times</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u3">♻️ RECYCLE — Convert waste into new products</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🛠️</span> Other Control Measures</h3>
+      <div class="info-grid">
+        <div class="info-card light-u1"><span class="ic-icon">🔧</span><div class="ic-label">Waste Treatment</div><div class="ic-sub">Before discharge</div></div>
+        <div class="info-card light-u2"><span class="ic-icon">🏭</span><div class="ic-label">Pollution Devices</div><div class="ic-sub">Scrubbers, filters</div></div>
+        <div class="info-card light-u6"><span class="ic-icon">🌿</span><div class="ic-label">Green Energy</div><div class="ic-sub">Solar, Wind</div></div>
+        <div class="info-card light-u5"><span class="ic-icon">📋</span><div class="ic-label">Legislation</div><div class="ic-sub">Environmental laws</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 5
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit5">
+  <div class="unit-header bg-u5" onclick="toggleUnit(this)">
+    <div class="unit-num">05</div>
+    <span class="unit-icon">🌐</span>
+    <h2>Environmental Issues and Scales</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">📐</span> Environmental Scales – The Scale Pyramid</h3>
+      <div class="pyramid">
+        <div class="pyr-level bg-u4" style="width:280px;height:44px">🌍 Planetary Scale — Whole Earth</div>
+        <div class="pyr-level" style="background:#e67e22;width:230px;height:44px;margin-top:4px">🌏 Synoptic Scale — Country / Continent</div>
+        <div class="pyr-level bg-u5" style="width:180px;height:44px;margin-top:4px">🏙️ Meso Scale — City / Region</div>
+        <div class="pyr-level bg-u1" style="width:130px;height:44px;margin-top:4px">🏠 Micro Scale — Home / Farm</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🔍</span> Local vs Global Issues</h3>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#fff9e6;border-left:4px solid var(--u5)">
+          <h4 style="color:var(--u5)">🏙️ Local Issues</h4>
+          <ul><li>💧 Water shortage in cities</li><li>🗑️ Garbage accumulation</li><li>🚗 Urban air pollution</li><li>🌊 Local river pollution</li></ul>
+        </div>
+        <div class="compare-card" style="background:#eaf4fb;border-left:4px solid var(--u2)">
+          <h4 style="color:var(--u2)">🌍 Global Issues</h4>
+          <ul><li>🌡️ Climate change</li><li>☁️ Ozone layer depletion</li><li>🦋 Biodiversity loss</li><li>🌊 Sea-level rise</li></ul>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">⚠️</span> Major Environmental Issues</h3>
+      <div class="info-grid">
+        <div class="info-card light-u4"><span class="ic-icon">👨‍👩‍👧‍👦</span><div class="ic-label">Population Growth</div><div class="ic-sub">More people = More resource demand</div></div>
+        <div class="info-card light-u5"><span class="ic-icon">🏙️</span><div class="ic-label">Urbanization</div><div class="ic-sub">Rapid expansion of cities</div></div>
+        <div class="info-card light-u7"><span class="ic-icon">🌲</span><div class="ic-label">Deforestation</div><div class="ic-sub">Forests cleared for development</div></div>
+        <div class="info-card light-u4"><span class="ic-icon">📉</span><div class="ic-label">Resource Depletion</div><div class="ic-sub">Overuse of natural resources</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🎯</span> Sustainable Development Goals (SDGs)</h3>
+      <div class="circular-badges">
+        <div class="c-badge" style="background:#00aed9"><span class="cb-icon">💧</span>Clean Water</div>
+        <div class="c-badge" style="background:#3f7e44"><span class="cb-icon">🌡️</span>Climate Action</div>
+        <div class="c-badge" style="background:#fcc30b;color:#333"><span class="cb-icon">⚡</span>Clean Energy</div>
+        <div class="c-badge" style="background:#56c02b"><span class="cb-icon">🌿</span>Life on Land</div>
+        <div class="c-badge" style="background:#0a97d9"><span class="cb-icon">🐠</span>Life Below Water</div>
+        <div class="c-badge" style="background:#fd6925"><span class="cb-icon">🤝</span>Partnerships</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 6
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit6">
+  <div class="unit-header bg-u6" onclick="toggleUnit(this)">
+    <div class="unit-num">06</div>
+    <span class="unit-icon">🌡️</span>
+    <h2>Climate Change</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">🏡</span> The Greenhouse Effect</h3>
+      <div class="flowchart">
+        <div class="flow-node" style="background:#f39c12">☀️ Sunlight reaches Earth</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#e67e22">🌍 Earth Surface absorbs heat</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#d35400">🔥 Heat released as infrared radiation</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#c0392b">☁️ Greenhouse gases TRAP the heat</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node bg-u4">🌡️ Earth gets warmer (Greenhouse Effect)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#8e44ad">🌊 Climate Change &amp; Global Warming</div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">☁️</span> Greenhouse Gases</h3>
+      <div class="info-grid">
+        <div class="info-card light-u4"><span class="ic-icon">🏭</span><div class="ic-label">CO₂</div><div class="ic-sub">Carbon Dioxide – burning fuels</div></div>
+        <div class="info-card light-u5"><span class="ic-icon">🐄</span><div class="ic-label">Methane (CH₄)</div><div class="ic-sub">Livestock, rice paddies</div></div>
+        <div class="info-card light-u2"><span class="ic-icon">💧</span><div class="ic-label">Water Vapour</div><div class="ic-sub">Most abundant GHG</div></div>
+        <div class="info-card light-u6"><span class="ic-icon">🌀</span><div class="ic-label">Ozone (O₃)</div><div class="ic-sub">Lower atmosphere GHG</div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">⚡</span> Effects of Climate Change</h3>
+      <div class="effect-row">
+        <div class="effect-card" style="background:#fdf2f2;border-color:var(--u4)"><span class="ec-icon">🌍</span><div class="ec-title text-u4">Environmental Effects</div><ul><li>🌡️ Rising temperatures</li><li>🧊 Melting glaciers</li><li>🌊 Sea-level rise</li><li>🌵 More droughts</li><li>🌧️ Intense floods</li></ul></div>
+        <div class="effect-card" style="background:#fef5e7;border-color:var(--u7)"><span class="ec-icon">👤</span><div class="ec-title text-u7">Human Effects</div><ul><li>🌾 Food insecurity</li><li>💧 Water shortages</li><li>🤒 Health problems</li><li>🏚️ Displacement</li></ul></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🛡️</span> Mitigation vs Adaptation</h3>
+      <div class="compare-row">
+        <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+          <h4 style="color:var(--u1)">🔧 Mitigation — Reduce the Cause</h4>
+          <div class="tag-list"><span class="tag bg-u1">☀️ Solar Energy</span><span class="tag bg-u1">💨 Wind Energy</span><span class="tag bg-u1">🌲 Afforestation</span></div>
+        </div>
+        <div class="compare-card" style="background:#eaf4fb;border-left:4px solid var(--u2)">
+          <h4 style="color:var(--u2)">🔄 Adaptation — Adjust to the Impact</h4>
+          <div class="tag-list"><span class="tag bg-u2">🌊 Seawalls</span><span class="tag bg-u2">🌾 Drought Crops</span><span class="tag bg-u2">⚠️ Disaster Planning</span></div>
+        </div>
+      </div>
+      <div class="memory-box" style="background:#e8f8f5;border-color:var(--u6)">
+        <div class="mb-title text-u6">🧠 Easy Trick</div>
+        <div class="mb-content">Mitigation = FIX the problem 🔧 &nbsp;|&nbsp; Adaptation = LIVE with the problem 🧘</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 7
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit7">
+  <div class="unit-header bg-u7" onclick="toggleUnit(this)">
+    <div class="unit-num">07</div>
+    <span class="unit-icon">⚙️</span>
+    <h2>Environmental Management</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">📋</span> Environmental Impact Assessment (EIA)</h3>
+      <p style="font-size:.9rem;color:var(--muted);margin-bottom:14px">A study conducted <b>before</b> starting any major project to identify environmental impacts.</p>
+      <div class="flowchart">
+        <div class="flow-node" style="background:#3498db">📝 Project Proposal</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#1abc9c">🔬 Environmental Study (Scoping)</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#f39c12">📊 Impact Analysis</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#9b59b6">📣 Public Consultation</div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-node" style="background:#e67e22">📄 EIA Report</div>
+        <div class="flow-arrow">↓</div>
+        <div style="display:flex;gap:20px">
+          <div class="flow-node bg-u1">✅ Approval</div>
+          <div class="flow-node bg-u4">❌ Rejection</div>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">⚖️</span> Key Environmental Principles</h3>
+      <div class="effect-row">
+        <div class="effect-card" style="background:#fdf2f2;border-color:var(--u4)"><span class="ec-icon">💰</span><div class="ec-title text-u4">Polluter Pays Principle</div><ul><li>Polluters bear cleanup costs</li><li>Example: Factory pays to clean polluted river</li></ul></div>
+        <div class="effect-card" style="background:#eafaf1;border-color:var(--u1)"><span class="ec-icon">🤝</span><div class="ec-title text-u1">Community Participation</div><ul><li>🌳 Tree plantation drives</li><li>♻️ Recycling campaigns</li><li>📢 Awareness programs</li></ul></div>
+        <div class="effect-card" style="background:#eaf4fb;border-color:var(--u2)"><span class="ec-icon">🔮</span><div class="ec-title text-u2">Precautionary Principle</div><ul><li>Act before damage occurs</li><li>Prevention is better than cure</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     UNIT 8
+════════════════════════════════════════════ -->
+<div class="unit-card" id="unit8">
+  <div class="unit-header bg-u8" onclick="toggleUnit(this)">
+    <div class="unit-num">08</div>
+    <span class="unit-icon">📜</span>
+    <h2>International Treaties and Legislation</h2>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="unit-body">
+    <div class="section">
+      <h3><span class="s-icon">📅</span> International Treaties Timeline</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-dot bg-u3">71</div><div class="tl-year text-u3">1971</div><div class="tl-content border-u3"><h4>🌊 Ramsar Convention</h4><p>Protection of wetlands — lakes, marshes, and river deltas.</p></div></div>
+        <div class="tl-item"><div class="tl-dot bg-u1">73</div><div class="tl-year text-u1">1973</div><div class="tl-content border-u1"><h4>🦁 CITES</h4><p>Convention on International Trade in Endangered Species — prevents illegal wildlife trade.</p></div></div>
+        <div class="tl-item"><div class="tl-dot bg-u7">87</div><div class="tl-year text-u7">1987</div><div class="tl-content border-u7"><h4>🌀 Montreal Protocol</h4><p>Phase out CFCs to protect the ozone layer. ✅ Most successful treaty!</p></div></div>
+        <div class="tl-item"><div class="tl-dot bg-u1">92</div><div class="tl-year text-u1">1992</div><div class="tl-content border-u1"><h4>🌿 Convention on Biological Diversity (CBD)</h4><p>Protect biodiversity — conservation and sustainable use of life on Earth.</p></div></div>
+        <div class="tl-item"><div class="tl-dot bg-u4">97</div><div class="tl-year text-u4">1997</div><div class="tl-content border-u4"><h4>🏭 Kyoto Protocol</h4><p>Developed nations commit to reducing greenhouse gas emissions.</p></div></div>
+        <div class="tl-item"><div class="tl-dot bg-u6">15</div><div class="tl-year text-u6">2015</div><div class="tl-content border-u6"><h4>🌍 Paris Agreement</h4><p>Limit global warming to below 2°C. All nations participate. Landmark agreement!</p></div></div>
+      </div>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🧠</span> Memory Table – Treaties at a Glance</h3>
+      <table class="styled-table">
+        <thead><tr><th class="bg-u8">Treaty</th><th class="bg-u8">Year</th><th class="bg-u8">Purpose</th><th class="bg-u8">Memory Hook</th></tr></thead>
+        <tbody>
+          <tr><td><b>🌊 Ramsar</b></td><td>1971</td><td>Wetland protection</td><td>🌊 Ramsar = Wetlands</td></tr>
+          <tr><td><b>🦁 CITES</b></td><td>1973</td><td>Stop wildlife trade</td><td>🦁 CITES = Save Animals</td></tr>
+          <tr><td><b>🌀 Montreal</b></td><td>1987</td><td>Protect ozone layer</td><td>🌀 Montreal = Ozone</td></tr>
+          <tr><td><b>🌿 CBD</b></td><td>1992</td><td>Biodiversity</td><td>🌿 CBD = Save Species</td></tr>
+          <tr><td><b>🏭 Kyoto</b></td><td>1997</td><td>Reduce GHG</td><td>🏭 Kyoto = Cut Emissions</td></tr>
+          <tr><td><b>🌍 Paris</b></td><td>2015</td><td>Limit warming 2°C</td><td>🌍 Paris = Climate Action</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="section">
+      <h3><span class="s-icon">🇮🇳</span> Environmental Laws in India</h3>
+      <div class="info-grid">
+        <div class="info-card light-u8"><span class="ic-icon">📗</span><div class="ic-label">Wildlife Protection Act</div><div class="ic-sub">1972 – Protects animals &amp; plants</div></div>
+        <div class="info-card light-u8"><span class="ic-icon">💧</span><div class="ic-label">Water Act</div><div class="ic-sub">1974 – Prevents water pollution</div></div>
+        <div class="info-card light-u8"><span class="ic-icon">💨</span><div class="ic-label">Air Act</div><div class="ic-sub">1981 – Controls air pollution</div></div>
+        <div class="info-card light-u8"><span class="ic-icon">🌍</span><div class="ic-label">Environment Protection Act</div><div class="ic-sub">1986 – Umbrella legislation</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ⭐  IMPORTANT EXAM NOTES  (NEW SECTION)
+═══════════════════════════════════════════════════════════════ -->
+<div class="section-divider" id="impnotes">
+  <span>⭐ Important Exam Notes — All Units</span>
+</div>
+
+<div class="imp-banner">
+  <div class="imp-banner-icon">📌</div>
+  <div class="imp-banner-text">
+    <h3>Important Exam Notes — Units 1 to 8</h3>
+    <p>Concise exam-ready points with diagrams, memory tricks, and model answers for every unit.</p>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 1 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u1" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 1</span>
+    <span style="font-size:1.5rem">🌿</span>
+    <h3>Human–Environment Interaction, City States, Industrial Revolution &amp; Ethics</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <!-- Topic 1 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🔁 1. Man and Environment Interaction</div>
+      <div class="imp-topic-body">
+        <p>Humans depend on the environment for food, water, shelter, and resources. At the same time, human activities affect the environment in positive and negative ways.</p>
+        <div class="pos-neg-grid">
+          <div class="pos-card">
+            <h5>✅ Positive Interactions</h5>
+            <ul><li>🌲 Tree plantation</li><li>🦁 Wildlife conservation</li><li>☀️ Renewable energy use</li></ul>
+          </div>
+          <div class="neg-card">
+            <h5>❌ Negative Interactions</h5>
+            <ul><li>🪓 Deforestation</li><li>☁️ Pollution</li><li>📉 Overuse of resources</li></ul>
+          </div>
+        </div>
+        <div class="imp-flow" style="margin-top:14px">
+          <div class="imp-flow-node bg-u1">🌍 Environment</div>
+          <div class="imp-flow-arrow">↓ Provides Resources</div>
+          <div class="imp-flow-node" style="background:#27ae60">👤 Humans</div>
+          <div class="imp-flow-arrow">↓ Use &amp; Modify</div>
+          <div class="imp-flow-node bg-u4">⚡ Modified Environment</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🏛️ 2. Emergence of City States</div>
+      <div class="imp-topic-body">
+        <p>Early human settlements gradually developed into organized cities and states as agriculture improved and populations grew.</p>
+        <div class="info-grid" style="margin-top:10px">
+          <div class="info-card light-u1"><span class="ic-icon">🏺</span><div class="ic-label">Indus Valley</div><div class="ic-sub">One of earliest urban civilizations</div></div>
+          <div class="info-card light-u1"><span class="ic-icon">🏛️</span><div class="ic-label">Mesopotamia</div><div class="ic-sub">Between Tigris &amp; Euphrates rivers</div></div>
+          <div class="info-card light-u1"><span class="ic-icon">🔺</span><div class="ic-label">Egyptian</div><div class="ic-sub">Nile River civilization</div></div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u1">🤝 Better Trade</span>
+          <span class="tag bg-u1">👨‍👩‍👧‍👦 Population Growth</span>
+          <span class="tag bg-u4">📦 Increased Resource Use</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 3 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🏭 3. Industrial Revolution and Its Impact</div>
+      <div class="imp-topic-body">
+        <p>Started in <strong>England in the 18th century</strong> when machines replaced manual labour.</p>
+        <div class="pos-neg-grid">
+          <div class="pos-card">
+            <h5>✅ Positive Impacts</h5>
+            <ul><li>📈 Increased production</li><li>🚂 Better transportation</li><li>💰 Economic growth</li></ul>
+          </div>
+          <div class="neg-card">
+            <h5>❌ Negative Impacts</h5>
+            <ul><li>💨 Air pollution</li><li>💧 Water pollution</li><li>⛏️ Resource depletion</li></ul>
+          </div>
+        </div>
+        <div class="imp-flow" style="margin-top:14px">
+          <div class="imp-flow-node bg-u4">🏭 Industrial Revolution</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#e67e22">⚙️ Factories &amp; Machines</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#f39c12">📦 More Production</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u4">☁️ More Pollution</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🌿 4. Environmental Ethics</div>
+      <div class="imp-topic-body">
+        <p>Moral principles guiding human behavior towards nature. It says we have a responsibility to protect the natural world.</p>
+        <div class="tag-list">
+          <span class="tag bg-u1">🤝 Respect Nature</span>
+          <span class="tag bg-u1">🦁 Protect Wildlife</span>
+          <span class="tag bg-u1">♻️ Use Resources Responsibly</span>
+        </div>
+        <div class="memory-box" style="background:#eafaf1;border-color:var(--u1);margin-top:12px">
+          <div class="mb-title text-u1">🧠 Example</div>
+          <div class="mb-content">Saving forests for future generations is an act of environmental ethics.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 5 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🌐 5. Stockholm Conference (1972)</div>
+      <div class="imp-topic-body">
+        <div class="effect-row">
+          <div class="effect-card light-u1"><span class="ec-icon">🏆</span><div class="ec-title text-u1">First Major Environmental Conference</div><ul><li>Organized by the United Nations</li><li>Raised global environmental awareness</li><li>Established UNEP (UN Environment Programme)</li></ul></div>
+          <div class="effect-card light-u2"><span class="ec-icon">📜</span><div class="ec-title text-u2">Key Outcomes</div><ul><li>Declaration on Human Environment</li><li>Action Plan for Environment</li><li>Start of global environmental governance</li></ul></div>
+        </div>
+        <div class="memory-box" style="background:#eaf4fb;border-color:var(--u2);margin-top:10px">
+          <div class="mb-title text-u2">🧠 Memory Trick</div>
+          <div class="mb-content">Stockholm (1972) = START of Global Environmental Action 🌱</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 6 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">📋 6. Brundtland Commission (1987)</div>
+      <div class="imp-topic-body">
+        <p><strong>Official Name:</strong> World Commission on Environment and Development.</p>
+        <div class="formula-box">
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:6px">Famous Definition of Sustainable Development</div>
+          <div class="formula-text" style="font-size:1rem">"Meeting present needs without compromising future generations' ability to meet their needs."</div>
+        </div>
+        <div class="memory-box" style="background:#eafaf1;border-color:var(--u1)">
+          <div class="mb-title text-u1">🧠 Key Fact</div>
+          <div class="mb-content">Brundtland Commission = Introduced the concept of Sustainable Development globally</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Topic 7 -->
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🌎 7. Rio Summit (1992) — Earth Summit</div>
+      <div class="imp-topic-body">
+        <p>Held at <strong>Rio de Janeiro, Brazil.</strong> Also called the Earth Summit.</p>
+        <div class="info-grid" style="margin-top:10px">
+          <div class="info-card light-u1"><span class="ic-icon">📋</span><div class="ic-label">Agenda 21</div><div class="ic-sub">Global action plan for sustainable development</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🌡️</span><div class="ic-label">Climate Convention</div><div class="ic-sub">Framework on Climate Change (UNFCCC)</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">🌿</span><div class="ic-label">CBD</div><div class="ic-sub">Convention on Biological Diversity</div></div>
+        </div>
+        <div class="imp-flow" style="margin-top:12px">
+          <div class="imp-flow-node bg-u1">🌎 Rio Summit 1992</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#27ae60">♻️ Sustainable Development Promoted</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u2">🤝 Global Cooperation Begun</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 1 Quick Revision</h4>
+      <ul>
+        <li>🌍 Environment = Biotic + Abiotic components</li>
+        <li>🔁 Human–Env Interaction = Positive &amp; Negative</li>
+        <li>🏛️ City States → Indus Valley, Mesopotamia, Egypt</li>
+        <li>🏭 Industrial Revolution (18th Century England) = More Production + More Pollution</li>
+        <li>🌿 Environmental Ethics = Moral duty to protect nature</li>
+        <li>🌐 Stockholm 1972 = First major global environment conference</li>
+        <li>📋 Brundtland 1987 = Defined Sustainable Development</li>
+        <li>🌎 Rio Summit 1992 = Agenda 21 + Climate Convention + CBD</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 2 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u2" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 2</span>
+    <span style="font-size:1.5rem">💧</span>
+    <h3>Energy Resources, SDGs, Water Scarcity &amp; Mineral Exploitation</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u2">⚡ 1. Energy Resources — Renewable vs Non-Renewable</div>
+      <div class="imp-topic-body">
+        <table class="styled-table">
+          <thead><tr><th class="bg-u2">Feature</th><th class="bg-u2">Renewable ♻️</th><th class="bg-u2">Non-Renewable ⛏️</th></tr></thead>
+          <tbody>
+            <tr><td>Quantity</td><td>Unlimited</td><td>Limited</td></tr>
+            <tr><td>Environmental Impact</td><td>Eco-friendly ✅</td><td>Polluting ❌</td></tr>
+            <tr><td>Future Use</td><td>Sustainable</td><td>Exhaustible</td></tr>
+            <tr><td>Examples</td><td>Solar, Wind, Hydro, Biomass</td><td>Coal, Petroleum, Natural Gas</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u2">🎯 2. SDGs — Sustainable Development Goals</div>
+      <div class="imp-topic-body">
+        <p><strong>17 Goals adopted by the UN in 2015</strong> as part of the 2030 Agenda for Sustainable Development.</p>
+        <div class="circular-badges">
+          <div class="c-badge" style="background:#00aed9"><span class="cb-icon">💧</span>Clean Water SDG 6</div>
+          <div class="c-badge" style="background:#fcc30b;color:#333"><span class="cb-icon">⚡</span>Clean Energy SDG 7</div>
+          <div class="c-badge" style="background:#3f7e44"><span class="cb-icon">🌡️</span>Climate Action SDG 13</div>
+          <div class="c-badge" style="background:#0a97d9"><span class="cb-icon">🐠</span>Below Water SDG 14</div>
+          <div class="c-badge" style="background:#56c02b"><span class="cb-icon">🌿</span>Life on Land SDG 15</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u2">💧 3. Water Scarcity and Water Conflicts</div>
+      <div class="imp-topic-body">
+        <div class="effect-row">
+          <div class="effect-card light-u2"><span class="ec-icon">😟</span><div class="ec-title text-u2">Causes of Water Scarcity</div><ul><li>👨‍👩‍👧‍👦 Population growth</li><li>☁️ Climate change</li><li>💧 Pollution of water bodies</li><li>📉 Overuse of groundwater</li></ul></div>
+          <div class="effect-card light-u4"><span class="ec-icon">⚔️</span><div class="ec-title text-u4">Water Conflicts</div><ul><li>Disputes over water resources</li><li>Between states/countries</li><li>Example: Cauvery River dispute (Karnataka vs Tamil Nadu)</li></ul></div>
+        </div>
+        <div class="memory-box" style="background:#eaf4fb;border-color:var(--u2);margin-top:10px">
+          <div class="mb-title text-u2">🧠 Key Fact</div>
+          <div class="mb-content">Cauvery River Dispute = Classic example of inter-state water conflict in India 🇮🇳</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u2">⛏️ 4. Mineral Exploitation and Harmful Effects</div>
+      <div class="imp-topic-body">
+        <p>Extraction of minerals from the Earth for industrial use.</p>
+        <div class="pos-neg-grid">
+          <div class="pos-card">
+            <h5>✅ Advantages</h5>
+            <ul><li>🏗️ Industrial development</li><li>👷 Employment generation</li><li>💰 Economic growth</li></ul>
+          </div>
+          <div class="neg-card">
+            <h5>❌ Harmful Effects</h5>
+            <ul><li>🌲 Deforestation</li><li>🏔️ Land degradation</li><li>💧 Water pollution</li><li>🦋 Habitat destruction</li></ul>
+          </div>
+        </div>
+        <div class="memory-box" style="background:#eaf4fb;border-color:var(--u2);margin-top:10px">
+          <div class="mb-title text-u2">🧠 Example</div>
+          <div class="mb-content">Open-cast coal mining destroys large areas of land and forests. 🪨</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 2 Quick Revision</h4>
+      <ul>
+        <li>☀️ Renewable = Unlimited &amp; Eco-friendly | ⛏️ Non-Renewable = Limited &amp; Polluting</li>
+        <li>🎯 17 SDGs adopted by UN in 2015</li>
+        <li>💧 Water Scarcity = Lack of clean water due to pollution &amp; overuse</li>
+        <li>⚔️ Cauvery Dispute = Example of water conflict</li>
+        <li>⛏️ Mining = Development + Destruction</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 3 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u3" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 3</span>
+    <span style="font-size:1.5rem">🌳</span>
+    <h3>Ozone Depletion, Disasters, Acid Rain, Land Degradation &amp; Afforestation</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u3">🌀 1. Ozone Layer Depletion</div>
+      <div class="imp-topic-body">
+        <p>Thinning of the ozone layer in the stratosphere. Main cause: <strong>CFCs (Chlorofluorocarbons)</strong> used in refrigerators and aerosols.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node" style="background:#f39c12">☀️ Sun UV Rays</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u3">🌀 Ozone Layer (Normal Protection)</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u1">🌍 Earth — Protected</div>
+        </div>
+        <div style="text-align:center;margin:8px 0;font-weight:700;color:var(--u4)">⬇ When Ozone Depletes:</div>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u4">⚠️ More UV Rays Reach Earth</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#c0392b">🤒 Skin Cancer + Eye Cataracts + Crop Damage</div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u4">🔬 Skin Cancer</span>
+          <span class="tag bg-u4">👁️ Eye Cataracts</span>
+          <span class="tag bg-u4">🌿 Plant Damage</span>
+          <span class="tag bg-u3">🛡️ Solution: Montreal Protocol (1987)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u3">🌪️ 2. Natural Disasters</div>
+      <div class="imp-topic-body">
+        <div class="info-grid">
+          <div class="info-card light-u3"><span class="ic-icon">🌊</span><div class="ic-label">Flood</div><div class="ic-sub">Heavy rainfall, river overflow</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">🏚️</span><div class="ic-label">Earthquake</div><div class="ic-sub">Tectonic plate movement</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">🌋</span><div class="ic-label">Volcano</div><div class="ic-sub">Magma eruption</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">🌀</span><div class="ic-label">Cyclone</div><div class="ic-sub">Tropical storms</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">🌊</span><div class="ic-label">Tsunami</div><div class="ic-sub">Underwater earthquakes</div></div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u4">💀 Loss of Life</span>
+          <span class="tag bg-u4">🏚️ Property Damage</span>
+          <span class="tag bg-u4">🌍 Environmental Destruction</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u3">🌧️ 3. Acid Rain</div>
+      <div class="imp-topic-body">
+        <p>Caused by <strong>SO₂ + NOx</strong> emissions from industries reacting with water vapor in clouds.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node" style="background:#e74c3c">🏭 SO₂ + NOx from Industries</div>
+          <div class="imp-flow-arrow">↓ Reacts with water in clouds</div>
+          <div class="imp-flow-node" style="background:#c0392b">💧 Sulfuric &amp; Nitric Acid Formed</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u4">🌧️ Acid Rain Falls</div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u4">🏛️ Damages Monuments (Taj Mahal)</span>
+          <span class="tag bg-u4">🌾 Harms Crops</span>
+          <span class="tag bg-u4">🐟 Acidifies Lakes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u3">🌫️ 4. Smog</div>
+      <div class="imp-topic-body">
+        <div class="formula-box">
+          <div class="formula-text">💨 Smoke + 🌫️ Fog = 😶‍🌫️ SMOG</div>
+        </div>
+        <p>Caused by vehicle and industrial emissions.</p>
+        <div class="tag-list">
+          <span class="tag bg-u3">🫁 Breathing Problems</span>
+          <span class="tag bg-u3">👁️ Reduced Visibility</span>
+          <span class="tag bg-u3">🤒 Respiratory Diseases</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u3">🏔️ 5. Land Degradation &amp; Deforestation</div>
+      <div class="imp-topic-body">
+        <div class="compare-row">
+          <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+            <h4 style="color:var(--u4)">🏔️ Land Degradation</h4>
+            <ul><li>Overgrazing → Soil bare</li><li>Mining → Land destroyed</li><li>Deforestation → Erosion increases</li></ul>
+          </div>
+          <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+            <h4 style="color:var(--u4)">🌲 Deforestation Effects</h4>
+            <ul><li>🦋 Biodiversity loss</li><li>🏜️ Soil erosion</li><li>🌡️ Climate change</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u1">🌱 6. Afforestation</div>
+      <div class="imp-topic-body">
+        <p>Planting trees in barren or deforested land to restore green cover.</p>
+        <div class="info-grid">
+          <div class="info-card light-u1"><span class="ic-icon">💚</span><div class="ic-label">Increases Greenery</div><div class="ic-sub">Restores ecosystems</div></div>
+          <div class="info-card light-u1"><span class="ic-icon">🏭</span><div class="ic-label">Reduces CO₂</div><div class="ic-sub">Acts as carbon sink</div></div>
+          <div class="info-card light-u1"><span class="ic-icon">🏔️</span><div class="ic-label">Prevents Erosion</div><div class="ic-sub">Roots hold soil</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 3 Quick Revision</h4>
+      <ul>
+        <li>🌀 Ozone Depletion → CFC → More UV → Skin Cancer</li>
+        <li>🌀 Montreal Protocol (1987) = Solution to Ozone Depletion</li>
+        <li>🌧️ Acid Rain = SO₂ + NOx + Water → Sulfuric Acid</li>
+        <li>😶‍🌫️ Smog = Smoke + Fog</li>
+        <li>🌲 Deforestation → Biodiversity Loss + Soil Erosion + Climate Change</li>
+        <li>🌱 Afforestation → Reduces CO₂ + Prevents Erosion</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 4 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u4" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 4</span>
+    <span style="font-size:1.5rem">🦋</span>
+    <h3>Biodiversity Hotspots, IUCN Categories, Ecosystem Services &amp; Threats</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u4">🔥 1. Biodiversity Hotspots</div>
+      <div class="imp-topic-body">
+        <p>Regions with <strong>rich biodiversity</strong> but under significant threat of habitat loss.</p>
+        <div class="compare-row">
+          <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+            <h4 style="color:var(--u4)">📋 Conditions to be a Hotspot</h4>
+            <ul><li>High number of endemic species</li><li>Significant habitat loss (70%+ lost)</li></ul>
+          </div>
+          <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+            <h4 style="color:var(--u1)">🇮🇳 Examples in India</h4>
+            <ul><li>🌿 Western Ghats</li><li>🏔️ Himalayas</li><li>🏝️ Indo-Burma region</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u4">📊 2. IUCN Threat Categories</div>
+      <div class="imp-topic-body">
+        <p>IUCN = <strong>International Union for Conservation of Nature</strong></p>
+        <div class="iucn-ladder">
+          <div class="iucn-rung" style="background:#2ecc71;width:320px">✅ LC — Least Concern</div>
+          <div class="iucn-rung" style="background:#f1c40f;color:#333;width:280px;margin-top:4px">⚠️ NT — Near Threatened</div>
+          <div class="iucn-rung" style="background:#e67e22;width:240px;margin-top:4px">🔶 VU — Vulnerable</div>
+          <div class="iucn-rung" style="background:#e74c3c;width:200px;margin-top:4px">🔴 EN — Endangered</div>
+          <div class="iucn-rung" style="background:#c0392b;width:160px;margin-top:4px">🆘 CR — Critically Endangered</div>
+          <div class="iucn-rung" style="background:#7f8c8d;width:120px;margin-top:4px">💀 EX — Extinct</div>
+        </div>
+        <div class="memory-box" style="background:#fdf2f2;border-color:var(--u4);margin-top:10px">
+          <div class="mb-title text-u4">🧠 Example</div>
+          <div class="mb-content">🐯 Tiger → Endangered (EN) &nbsp;|&nbsp; 🦅 Dodo → Extinct (EX)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u4">🌍 3. Ecosystem Services</div>
+      <div class="imp-topic-body">
+        <div class="info-grid">
+          <div class="info-card light-u4"><span class="ic-icon">🍎</span><div class="ic-label">Provisioning</div><div class="ic-sub">Food, water, medicines</div></div>
+          <div class="info-card light-u4"><span class="ic-icon">🌀</span><div class="ic-label">Regulating</div><div class="ic-sub">Climate, water purification, pollination</div></div>
+          <div class="info-card light-u4"><span class="ic-icon">🔄</span><div class="ic-label">Supporting</div><div class="ic-sub">Nutrient cycling, soil formation</div></div>
+          <div class="info-card light-u4"><span class="ic-icon">🎨</span><div class="ic-label">Cultural</div><div class="ic-sub">Recreation, tourism, spiritual value</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u4">⚠️ 4. Threats to Biodiversity — HIPPO</div>
+      <div class="imp-topic-body">
+        <div class="hippo-box">
+          <h4>🦛 Remember: H-I-P-P-O</h4>
+          <div class="hippo-row">
+            <div class="hippo-item"><span class="hi-letter">H</span><div class="hi-word">Habitat Loss</div></div>
+            <div class="hippo-item"><span class="hi-letter">I</span><div class="hi-word">Invasive Species</div></div>
+            <div class="hippo-item"><span class="hi-letter">P</span><div class="hi-word">Pollution</div></div>
+            <div class="hippo-item"><span class="hi-letter">P</span><div class="hi-word">Population Pressure</div></div>
+            <div class="hippo-item"><span class="hi-letter">O</span><div class="hi-word">Overexploitation</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u4">🛡️ 5. Conservation — In-Situ vs Ex-Situ</div>
+      <div class="imp-topic-body">
+        <div class="compare-row">
+          <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+            <h4 style="color:var(--u1)">🏞️ In-Situ Conservation</h4>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Protection in natural habitat.</p>
+            <ul><li>🏕️ National Parks</li><li>🦁 Wildlife Sanctuaries</li><li>🌿 Biosphere Reserves</li></ul>
+          </div>
+          <div class="compare-card" style="background:#f5eef8;border-left:4px solid var(--u3)">
+            <h4 style="color:var(--u3)">🏛️ Ex-Situ Conservation</h4>
+            <p style="font-size:.82rem;color:var(--muted);margin-bottom:8px">Protection outside natural habitat.</p>
+            <ul><li>🦓 Zoos</li><li>🌺 Botanical Gardens</li><li>🌱 Seed Banks</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 4 Quick Revision</h4>
+      <ul>
+        <li>🔥 Biodiversity Hotspot = Rich biodiversity + Under threat</li>
+        <li>🇮🇳 India Hotspots = Western Ghats + Himalayas</li>
+        <li>🐯 Tiger = Endangered | 💀 Dodo = Extinct</li>
+        <li>🦛 HIPPO = 5 main threats to biodiversity</li>
+        <li>🏞️ In-Situ = National Parks | 🏛️ Ex-Situ = Zoos, Seed Banks</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 5 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u5" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 5</span>
+    <span style="font-size:1.5rem">☁️</span>
+    <h3>All Types of Pollution — Complete Table</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u5">🌫️ All 6 Types of Pollution</div>
+      <div class="imp-topic-body">
+        <div class="info-grid">
+          <div class="info-card light-u4"><span class="ic-icon">💨</span><div class="ic-label">Air Pollution</div><div class="ic-sub">Vehicle smoke, industries, burning fuels</div></div>
+          <div class="info-card light-u2"><span class="ic-icon">💧</span><div class="ic-label">Water Pollution</div><div class="ic-sub">Sewage, industrial waste, oil spills</div></div>
+          <div class="info-card light-u7"><span class="ic-icon">🪨</span><div class="ic-label">Soil Pollution</div><div class="ic-sub">Pesticides, plastics, chemicals</div></div>
+          <div class="info-card light-u5"><span class="ic-icon">📢</span><div class="ic-label">Noise Pollution</div><div class="ic-sub">Loudspeakers, traffic, machinery</div></div>
+          <div class="info-card light-u4"><span class="ic-icon">🌡️</span><div class="ic-label">Thermal Pollution</div><div class="ic-sub">Hot water from factories/power plants</div></div>
+          <div class="info-card light-u3"><span class="ic-icon">☢️</span><div class="ic-label">Radioactive Pollution</div><div class="ic-sub">Nuclear waste, accidents</div></div>
+        </div>
+        <table class="styled-table" style="margin-top:16px">
+          <thead><tr><th class="bg-u5">Pollution Type</th><th class="bg-u5">Icon</th><th class="bg-u5">Main Source</th><th class="bg-u5">Key Effect</th></tr></thead>
+          <tbody>
+            <tr><td><b>Air</b></td><td>💨</td><td>Vehicle smoke</td><td>Asthma, Lung disease</td></tr>
+            <tr><td><b>Water</b></td><td>💧</td><td>Sewage</td><td>Cholera, Typhoid</td></tr>
+            <tr><td><b>Soil</b></td><td>🪨</td><td>Pesticides/Plastics</td><td>Reduced fertility</td></tr>
+            <tr><td><b>Noise</b></td><td>📢</td><td>Traffic</td><td>Hearing loss, Stress</td></tr>
+            <tr><td><b>Thermal</b></td><td>🌡️</td><td>Factories</td><td>Kills aquatic life</td></tr>
+            <tr><td><b>Radioactive</b></td><td>☢️</td><td>Nuclear Plants</td><td>Cancer, Mutations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 5 Quick Revision</h4>
+      <ul>
+        <li>💨 Air → Vehicle smoke → Asthma</li>
+        <li>💧 Water → Sewage → Cholera</li>
+        <li>🪨 Soil → Pesticides → Less fertility</li>
+        <li>📢 Noise → Traffic → Hearing loss</li>
+        <li>🌡️ Thermal → Hot water discharge → Aquatic death</li>
+        <li>☢️ Radioactive → Nuclear waste → Cancer</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 6 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u6" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 6</span>
+    <span style="font-size:1.5rem">🌡️</span>
+    <h3>Climate Change Master Notes — 1.5°C Limit, Carbon Sink, Net Zero, Climate Justice &amp; NCAP</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">🌡️ 1. Importance of 1.5°C and 2°C Temperature Limit</div>
+      <div class="imp-topic-body">
+        <p>Scientists believe that if global temperature rises above <strong>1.5°C–2°C</strong> compared to pre-industrial levels, climate impacts become very dangerous.</p>
+        <div class="compare-row">
+          <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+            <h4 style="color:var(--u1)">✅ Below 1.5°C — Safer Future</h4>
+            <ul><li>Less extreme weather</li><li>Protected coastal areas</li><li>Better food &amp; water security</li></ul>
+          </div>
+          <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+            <h4 style="color:var(--u4)">❌ Above 2°C — Extreme Risks</h4>
+            <ul><li>Severe heat waves</li><li>Melting glaciers + sea rise</li><li>Biodiversity collapse</li><li>Food &amp; water crises</li></ul>
+          </div>
+        </div>
+        <div class="exam-q-box">
+          <div class="eq-label">🎯 Likely Exam Question</div>
+          <div class="eq-q">Why is limiting global warming to 1.5°C important?</div>
+          <div class="eq-a">Limiting warming to 1.5°C reduces extreme weather events, protects ecosystems, decreases sea-level rise, and improves food and water security for all nations.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">🌍 2. Global Warming</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> Gradual increase in Earth's average temperature due to accumulation of greenhouse gases.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u4">🏭 Fossil Fuel Burning</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#e67e22">📈 Increase in CO₂</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#c0392b">☁️ Enhanced Greenhouse Effect</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#8e44ad">🌡️ Global Warming</div>
+        </div>
+        <div class="effect-row" style="margin-top:12px">
+          <div class="effect-card light-u4"><span class="ec-icon">🧊</span><div class="ec-title text-u4">Environmental</div><ul><li>Glacier melting</li><li>Heat waves</li><li>Floods &amp; Droughts</li></ul></div>
+          <div class="effect-card light-u7"><span class="ec-icon">👤</span><div class="ec-title text-u7">Human Impact</div><ul><li>Food insecurity</li><li>Water shortage</li><li>Climate refugees</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">🌿 3. Carbon Sink</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> Anything that absorbs more carbon dioxide than it releases.</p>
+        <div class="info-grid">
+          <div class="info-card light-u6"><span class="ic-icon">🌲</span><div class="ic-label">Forests</div><div class="ic-sub">Largest land carbon sink</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🌊</span><div class="ic-label">Oceans</div><div class="ic-sub">Absorbs 30% of CO₂</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🌿</span><div class="ic-label">Wetlands</div><div class="ic-sub">High carbon storage</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🌴</span><div class="ic-label">Mangroves</div><div class="ic-sub">Coastal carbon storage</div></div>
+        </div>
+        <div class="imp-flow" style="margin-top:12px">
+          <div class="imp-flow-node bg-u4">☁️ CO₂ in Atmosphere</div>
+          <div class="imp-flow-arrow">↓ Absorbed by</div>
+          <div class="imp-flow-node bg-u1">🌲 Forests / Oceans / Wetlands</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u6">✅ Carbon Stored — Climate Balanced</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">🎯 4. Net Zero Target</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> A condition where carbon emissions released equal carbon removed from the atmosphere.</p>
+        <div class="formula-box">
+          <div class="formula-text">🏭 Carbon Emitted = 🌲 Carbon Removed → 🎯 Net Zero</div>
+        </div>
+        <div class="info-grid">
+          <div class="info-card light-u6"><span class="ic-icon">☀️</span><div class="ic-label">Renewable Energy</div><div class="ic-sub">Reduces emissions</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🌲</span><div class="ic-label">Afforestation</div><div class="ic-sub">Increases carbon removal</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🔬</span><div class="ic-label">Carbon Capture</div><div class="ic-sub">Tech to absorb CO₂</div></div>
+        </div>
+        <div class="memory-box" style="background:#e8f8f5;border-color:var(--u6);margin-top:10px">
+          <div class="mb-title text-u6">🇮🇳 India's Target</div>
+          <div class="mb-content">India aims to achieve Net Zero by <strong>2070</strong> 🎯</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">⚖️ 5. Climate Justice</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> The idea that climate change disproportionately affects poor and developing countries, even though they contribute less to pollution.</p>
+        <div class="compare-row">
+          <div class="compare-card" style="background:#fdf2f2;border-left:4px solid var(--u4)">
+            <h4 style="color:var(--u4)">😢 Who Suffers More?</h4>
+            <ul><li>Poor &amp; developing nations</li><li>Small island nations (sea rise)</li><li>Agricultural communities (drought)</li></ul>
+          </div>
+          <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+            <h4 style="color:var(--u1)">✅ Principle of Justice</h4>
+            <ul><li>Big polluters must take greater responsibility</li><li>Developed nations provide climate finance</li><li>Technology transfer to developing nations</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">📊 6. Carbon Intensity vs Energy Intensity</div>
+      <div class="imp-topic-body">
+        <table class="styled-table">
+          <thead><tr><th class="bg-u6">Feature</th><th class="bg-u6">Carbon Intensity 🏭</th><th class="bg-u6">Energy Intensity ⚡</th></tr></thead>
+          <tbody>
+            <tr><td>Measures</td><td>CO₂ emitted per unit of output</td><td>Energy consumed per unit of output</td></tr>
+            <tr><td>Indicates</td><td>Level of pollution</td><td>Level of efficiency</td></tr>
+            <tr><td>Goal</td><td>Lower is better ✅</td><td>Lower is better ✅</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u6">📋 7. National Clean Air Programme (NCAP)</div>
+      <div class="imp-topic-body">
+        <p>Government initiative to reduce environmental and climate impacts especially air pollution in Indian cities.</p>
+        <div class="info-grid">
+          <div class="info-card light-u6"><span class="ic-icon">💨</span><div class="ic-label">Improve Air Quality</div><div class="ic-sub">Reduce PM2.5 &amp; PM10</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">🏙️</span><div class="ic-label">Target Cities</div><div class="ic-sub">122 non-attainment cities</div></div>
+          <div class="info-card light-u6"><span class="ic-icon">💚</span><div class="ic-label">Health Benefit</div><div class="ic-sub">Cleaner air = better health</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 6 Quick Revision</h4>
+      <ul>
+        <li>🌡️ Global Warming → Temperature Rise due to GHGs</li>
+        <li>🌀 Climate Change → Long-term weather pattern changes</li>
+        <li>🌲 Carbon Sink → Forests, Oceans, Wetlands absorb CO₂</li>
+        <li>🎯 Net Zero → Emission = Removal (India target: 2070)</li>
+        <li>⚖️ Climate Justice → Poor nations suffer more, rich nations responsible</li>
+        <li>📊 Carbon Intensity → CO₂ per output | Energy Intensity → Energy per output</li>
+        <li>📋 NCAP → Reduce air pollution in Indian cities</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 7 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u7" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 7</span>
+    <span style="font-size:1.5rem">⚙️</span>
+    <h3>Environmental Management Master Notes — Articles, ISO 14001, LCA, Circular Economy, EIA</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">📜 1. Article 48A vs Article 51A(g)</div>
+      <div class="imp-topic-body">
+        <div class="compare-row">
+          <div class="compare-card" style="background:#fef5e7;border-left:4px solid var(--u7)">
+            <h4 style="color:var(--u7)">🏛️ Article 48A — Government Duty</h4>
+            <p style="font-size:.85rem;margin-bottom:8px"><strong>Directive Principles of State Policy</strong></p>
+            <p style="font-size:.85rem;color:var(--muted);">"The State shall protect and improve the environment and safeguard forests and wildlife."</p>
+          </div>
+          <div class="compare-card" style="background:#eafaf1;border-left:4px solid var(--u1)">
+            <h4 style="color:var(--u1)">👤 Article 51A(g) — Citizen Duty</h4>
+            <p style="font-size:.85rem;margin-bottom:8px"><strong>Fundamental Duties of Citizens</strong></p>
+            <p style="font-size:.85rem;color:var(--muted);">Every citizen must protect forests, lakes, rivers, and wildlife.</p>
+          </div>
+        </div>
+        <div class="memory-box" style="background:#fef5e7;border-color:var(--u7)">
+          <div class="mb-title text-u7">🧠 Memory Trick</div>
+          <div class="mb-content">48A → Government Protects 🏛️ &nbsp;|&nbsp; 51A(g) → Citizen Protects 👤</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">🏅 2. ISO 14001 — Environmental Management System</div>
+      <div class="imp-topic-body">
+        <p>International standard for Environmental Management Systems (EMS). Helps organizations improve environmental performance.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u2">📋 Plan — Set objectives</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u1">✅ Do — Implement actions</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u5">🔍 Check — Monitor &amp; measure</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u7">🔄 Act — Review &amp; improve</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u6">📈 Continuous Improvement</div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u7">♻️ Reduce Pollution</span>
+          <span class="tag bg-u7">📊 Better Performance</span>
+          <span class="tag bg-u7">⚖️ Legal Compliance</span>
+          <span class="tag bg-u7">🏆 Better Image</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">🔬 3. Life Cycle Analysis (LCA)</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> Study of environmental impact of a product from birth to death (cradle to grave).</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node" style="background:#3498db">⛏️ Raw Material Extraction</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node" style="background:#e67e22">🏭 Manufacturing</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u1">🛒 Use by Consumer</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u4">🗑️ Disposal / End of Life</div>
+        </div>
+        <div class="memory-box" style="background:#fef5e7;border-color:var(--u7);margin-top:10px">
+          <div class="mb-title text-u7">🧠 Example</div>
+          <div class="mb-content">Plastic bottle: Extract oil → Manufacture → Use → Thrown away → Pollutes land</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">🔄 4. Circular Economy</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> Economic system where resources are reused repeatedly to minimize waste generation.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u1">🏭 Produce</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u2">🛒 Use</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u5">🔁 Reuse</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u6">♻️ Recycle</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u1">🏭 Produce Again ↺</div>
+        </div>
+        <div class="tag-list" style="margin-top:10px">
+          <span class="tag bg-u7">📉 Less Waste</span>
+          <span class="tag bg-u7">♻️ Resource Conservation</span>
+          <span class="tag bg-u7">🌱 Sustainable Development</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">♻️ 5. 3R Concept — Reduce, Reuse, Recycle</div>
+      <div class="imp-topic-body">
+        <div class="effect-row">
+          <div class="effect-card light-u1"><span class="ec-icon">📉</span><div class="ec-title text-u1">REDUCE</div><ul><li>Use fewer resources</li><li>Example: Use digital notes instead of paper ✅</li></ul></div>
+          <div class="effect-card light-u2"><span class="ec-icon">🔁</span><div class="ec-title text-u2">REUSE</div><ul><li>Use items multiple times</li><li>Example: Reuse water bottles ✅</li></ul></div>
+          <div class="effect-card light-u6"><span class="ec-icon">♻️</span><div class="ec-title text-u6">RECYCLE</div><ul><li>Convert waste into new products</li><li>Example: Recycling paper into notebooks ✅</li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u7">📋 6. Environmental Impact Assessment (EIA)</div>
+      <div class="imp-topic-body">
+        <p><strong>Definition:</strong> Process to evaluate environmental effects before starting any major project.</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u2">📝 Project Proposal</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u6">🔬 Environmental Study</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u5">📊 Impact Assessment</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u3">📣 Public Consultation</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u7">📄 Final Report</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div style="display:flex;gap:16px">
+            <div class="imp-flow-node bg-u1">✅ Approval</div>
+            <div class="imp-flow-node bg-u4">❌ Rejection</div>
+          </div>
+        </div>
+        <div class="memory-box" style="background:#fef5e7;border-color:var(--u7);margin-top:10px">
+          <div class="mb-title text-u7">🧠 Example</div>
+          <div class="mb-content">Before building a dam → EIA studies impact on rivers, forests, wildlife, and nearby villages.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 7 Quick Revision</h4>
+      <ul>
+        <li>🏛️ Article 48A → Government must protect environment</li>
+        <li>👤 Article 51A(g) → Citizens must protect environment</li>
+        <li>🏅 ISO 14001 → Plan → Do → Check → Act (EMS Standard)</li>
+        <li>🔬 LCA → Study product impact from Raw Material to Disposal</li>
+        <li>🔄 Circular Economy → Produce → Use → Reuse → Recycle → Repeat</li>
+        <li>♻️ 3R → Reduce + Reuse + Recycle</li>
+        <li>📋 EIA → Environmental study before any major project</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ─── IMP UNIT 8 ─── -->
+<div class="imp-unit-card">
+  <div class="imp-unit-header bg-u8" onclick="toggleImp(this)">
+    <span class="imp-unit-badge">UNIT 8</span>
+    <span style="font-size:1.5rem">📜</span>
+    <h3>Treaties Master Notes — Montreal, Kyoto, Paris, CBD, COP, IPCC, IUCN &amp; Indian Laws</h3>
+    <button class="toggle-btn">▼</button>
+  </div>
+  <div class="imp-unit-body">
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🌀 1. Montreal Protocol (1987)</div>
+      <div class="imp-topic-body">
+        <div class="effect-row">
+          <div class="effect-card light-u8"><span class="ec-icon">🎯</span><div class="ec-title text-u8">Purpose</div><ul><li>Protection of ozone layer</li><li>Phase out CFC production &amp; use</li></ul></div>
+          <div class="effect-card light-u1"><span class="ec-icon">✅</span><div class="ec-title text-u1">Success Story</div><ul><li>Ozone layer is gradually recovering</li><li>Most successful environmental treaty</li></ul></div>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Memory</div>
+          <div class="mb-content">Montreal (1987) = 🌀 Ozone Protection — Most Successful Treaty!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🏭 2. Kyoto Protocol (1997)</div>
+      <div class="imp-topic-body">
+        <p>First international treaty with <strong>legally binding</strong> greenhouse gas emission reduction targets — primarily for developed nations.</p>
+        <div class="tag-list">
+          <span class="tag bg-u8">📉 Reduce GHG Emissions</span>
+          <span class="tag bg-u8">⚖️ Legally Binding</span>
+          <span class="tag bg-u8">🌍 Developed Nations Focus</span>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Memory</div>
+          <div class="mb-content">Kyoto (1997) = 🏭 Cut Emissions — First Legally Binding Climate Treaty</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🌍 3. Paris Agreement (2015)</div>
+      <div class="imp-topic-body">
+        <p>Landmark global agreement — all nations (developed and developing) committed to climate action. Came from <strong>COP21</strong>.</p>
+        <div class="info-grid">
+          <div class="info-card light-u8"><span class="ic-icon">🌡️</span><div class="ic-label">Goal</div><div class="ic-sub">Limit warming to 1.5–2°C above pre-industrial levels</div></div>
+          <div class="info-card light-u8"><span class="ic-icon">🌍</span><div class="ic-label">Participation</div><div class="ic-sub">All nations included (195 countries)</div></div>
+          <div class="info-card light-u8"><span class="ic-icon">📋</span><div class="ic-label">NDCs</div><div class="ic-sub">Each country submits National Action Plans</div></div>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Memory</div>
+          <div class="mb-content">Paris (2015) = 🌍 Climate Action for ALL Nations — Limit 1.5°C!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🌿 4. Convention on Biological Diversity (CBD) — 1992</div>
+      <div class="imp-topic-body">
+        <p>Started at the <strong>Rio Earth Summit 1992.</strong> Three core objectives:</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u1">🛡️ Conservation of Biodiversity</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u6">♻️ Sustainable Use of Resources</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u5">🤝 Fair Sharing of Benefits</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🌊 5. Ramsar Convention (1971)</div>
+      <div class="imp-topic-body">
+        <p>International treaty for conservation and sustainable use of wetlands.</p>
+        <div class="tag-list">
+          <span class="tag bg-u8">🌊 Lakes</span>
+          <span class="tag bg-u8">🌿 Marshes</span>
+          <span class="tag bg-u8">🌴 Mangroves</span>
+          <span class="tag bg-u8">🌾 Peatlands</span>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Memory</div>
+          <div class="mb-content">Ramsar (1971) = 🌊 Wetlands Protection</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🌐 6. Conference of Parties (COP)</div>
+      <div class="imp-topic-body">
+        <p>Annual meeting of all countries under the UN Framework Convention on Climate Change (UNFCCC).</p>
+        <div class="imp-flow">
+          <div class="imp-flow-node bg-u8">🌍 Countries Meet (Annually)</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u2">💬 Discuss Climate Issues &amp; Progress</div>
+          <div class="imp-flow-arrow">↓</div>
+          <div class="imp-flow-node bg-u1">📜 Make Global Agreements</div>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Key Example</div>
+          <div class="mb-content">COP21 (Paris 2015) → Paris Agreement | COP26 (Glasgow 2021) → Net Zero commitments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🔬 7. IPCC — Intergovernmental Panel on Climate Change</div>
+      <div class="imp-topic-body">
+        <div class="info-grid">
+          <div class="info-card light-u8"><span class="ic-icon">📅</span><div class="ic-label">Established</div><div class="ic-sub">1988 by UNEP &amp; WMO</div></div>
+          <div class="info-card light-u8"><span class="ic-icon">📊</span><div class="ic-label">Function</div><div class="ic-sub">Assess climate research &amp; publish reports</div></div>
+          <div class="info-card light-u8"><span class="ic-icon">🏛️</span><div class="ic-label">Importance</div><div class="ic-sub">Scientific basis for climate policies worldwide</div></div>
+        </div>
+        <div class="memory-box" style="background:#eaf2fb;border-color:var(--u8);margin-top:10px">
+          <div class="mb-title text-u8">🧠 Memory</div>
+          <div class="mb-content">IPCC = 🔬 Climate Scientists of the World — They say what the science shows!</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🦁 8. IUCN — International Union for Conservation of Nature</div>
+      <div class="imp-topic-body">
+        <p>Prepares the <strong>Red List</strong> — the world's most comprehensive inventory of threatened species.</p>
+        <div class="iucn-ladder">
+          <div class="iucn-rung" style="background:#2ecc71;width:320px">✅ LC — Least Concern</div>
+          <div class="iucn-rung" style="background:#f1c40f;color:#333;width:280px;margin-top:4px">⚠️ NT — Near Threatened</div>
+          <div class="iucn-rung" style="background:#e67e22;width:240px;margin-top:4px">🔶 VU — Vulnerable</div>
+          <div class="iucn-rung" style="background:#e74c3c;width:200px;margin-top:4px">🔴 EN — Endangered (e.g. Tiger 🐯)</div>
+          <div class="iucn-rung" style="background:#c0392b;width:160px;margin-top:4px">🆘 CR — Critically Endangered</div>
+          <div class="iucn-rung" style="background:#7f8c8d;width:120px;margin-top:4px">💀 EX — Extinct (e.g. Dodo)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imp-topic">
+      <div class="imp-topic-head bg-u8">🇮🇳 9. Key Environmental Laws of India</div>
+      <div class="imp-topic-body">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot bg-u1">72</div>
+            <div class="tl-year text-u1">1972</div>
+            <div class="tl-content border-u1"><h4>📗 Wildlife Protection Act</h4><p>Protects wild animals and plants. Created National Parks and Wildlife Sanctuaries.</p></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot bg-u2">74</div>
+            <div class="tl-year text-u2">1974</div>
+            <div class="tl-content border-u2"><h4>💧 Water (Prevention &amp; Control of Pollution) Act</h4><p>Prevents and controls water pollution from industries and sewage.</p></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot bg-u4">81</div>
+            <div class="tl-year text-u4">1981</div>
+            <div class="tl-content border-u4"><h4>💨 Air (Prevention &amp; Control of Pollution) Act</h4><p>Controls air pollution and sets standards for emissions.</p></div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot bg-u7">86</div>
+            <div class="tl-year text-u7">1986</div>
+            <div class="tl-content border-u7"><h4>🌍 Environment Protection Act</h4><p>Umbrella legislation — empowers government to take all measures for environmental protection.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-strip">
+      <h4>⚡ Unit 8 Quick Revision</h4>
+      <ul>
+        <li>🌀 Montreal (1987) → Ozone Layer Protection</li>
+        <li>🏭 Kyoto (1997) → GHG Emission Reduction (Legally Binding)</li>
+        <li>🌍 Paris (2015) → Climate Action for ALL — Limit 1.5–2°C</li>
+        <li>🌿 CBD (1992) → Conserve + Sustainable Use + Share Benefits</li>
+        <li>🌊 Ramsar (1971) → Wetlands Protection</li>
+        <li>🦁 CITES (1973) → Stop Illegal Wildlife Trade</li>
+        <li>🌐 COP → Annual climate meetings (COP21 = Paris Agreement)</li>
+        <li>🔬 IPCC (1988) → Climate Science Body</li>
+        <li>🦁 IUCN → Red List: EX → CR → EN → VU → NT → LC</li>
+        <li>🇮🇳 India: Wildlife Act 1972 | Water Act 1974 | Air Act 1981 | EPA 1986</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     🎯  10-MARK QUESTIONS SECTION
+═══════════════════════════════════════════════════════════════ -->
+<div class="section-divider" id="tenmark">
+  <span>🎯 Most Important 10-Mark Exam Questions</span>
+</div>
+
+<div class="tenmark-wrap">
+  <div class="tenmark-header" onclick="toggleTenMark(this)">
+    <span style="font-size:2rem">🎯</span>
+    <h2>Most Important 10-Mark Questions — Units 6, 7 &amp; 8</h2>
+    <button class="toggle-btn" style="background:rgba(0,0,0,.15);color:#7b3f00">▼</button>
+  </div>
+  <div class="tenmark-body">
+
+    <div class="tenmark-unit-block">
+      <div class="tenmark-unit-title text-u6">
+        <span>🌡️</span> Unit 6 — Climate Change Questions
+      </div>
+      <ul class="tenmark-q-list">
+        <li style="border-color:var(--u6)">
+          <span>Explain global warming — its causes and impacts on the environment and humans.</span>
+        </li>
+        <li style="border-color:var(--u6)">
+          <span>What is climate change? Discuss its effects on forests, biodiversity and sea level.</span>
+        </li>
+        <li style="border-color:var(--u6)">
+          <span>Explain Net Zero target and Carbon Sink with examples and diagrams.</span>
+        </li>
+        <li style="border-color:var(--u6)">
+          <span>Write a detailed note on Climate Justice with examples.</span>
+        </li>
+        <li style="border-color:var(--u6)">
+          <span>Why is limiting global warming to 1.5°C important? Explain with consequences of exceeding 2°C.</span>
+        </li>
+        <li style="border-color:var(--u6)">
+          <span>Differentiate between Carbon Intensity and Energy Intensity with examples.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tenmark-unit-block">
+      <div class="tenmark-unit-title text-u7">
+        <span>⚙️</span> Unit 7 — Environmental Management Questions
+      </div>
+      <ul class="tenmark-q-list">
+        <li style="border-color:var(--u7)">
+          <span>Explain Environmental Impact Assessment (EIA) — its objectives, steps and importance.</span>
+        </li>
+        <li style="border-color:var(--u7)">
+          <span>Discuss Circular Economy and the 3R concept with diagrams and examples.</span>
+        </li>
+        <li style="border-color:var(--u7)">
+          <span>Explain ISO 14001 and Environmental Management System (EMS) with the PDCA cycle.</span>
+        </li>
+        <li style="border-color:var(--u7)">
+          <span>Differentiate between Article 48A and Article 51A(g) with their significance.</span>
+        </li>
+        <li style="border-color:var(--u7)">
+          <span>What is Life Cycle Analysis (LCA)? Explain its stages with an example.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tenmark-unit-block">
+      <div class="tenmark-unit-title text-u8">
+        <span>📜</span> Unit 8 — Treaties &amp; Legislation Questions
+      </div>
+      <ul class="tenmark-q-list">
+        <li style="border-color:var(--u8)">
+          <span>Explain the Montreal Protocol — its objectives, actions and outcomes.</span>
+        </li>
+        <li style="border-color:var(--u8)">
+          <span>Compare the Kyoto Protocol (1997) and Paris Agreement (2015) — purpose, differences and significance.</span>
+        </li>
+        <li style="border-color:var(--u8)">
+          <span>Discuss the Ramsar Convention and CBD — objectives and importance for biodiversity.</span>
+        </li>
+        <li style="border-color:var(--u8)">
+          <span>Write short notes on COP, IPCC and IUCN — their roles and importance.</span>
+        </li>
+        <li style="border-color:var(--u8)">
+          <span>Explain the Environment Protection Act 1986 and Wildlife Protection Act 1972 with their objectives.</span>
+        </li>
+        <li style="border-color:var(--u8)">
+          <span>Explain IUCN Red List categories with examples. What is the significance of these categories?</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Model Answer Box -->
+    <div style="margin-top:20px">
+      <h3 style="font-size:1rem;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px">
+        <span>✍️</span> Sample Model Answers
+      </h3>
+      <div class="exam-q-box">
+        <div class="eq-label">🎯 Sample 10-Mark Answer</div>
+        <div class="eq-q">Q: Explain Net Zero and Carbon Sink.</div>
+        <div class="eq-a">
+          <strong>Carbon Sink:</strong> A carbon sink is anything that absorbs more CO₂ than it releases. Examples: Forests, Oceans, Wetlands, and Mangroves. They help reduce global warming by storing carbon naturally.<br><br>
+          <strong>Net Zero:</strong> Net Zero is a state where the amount of greenhouse gases emitted equals the amount removed from the atmosphere. Formula: Carbon Emitted = Carbon Removed. Methods to achieve Net Zero include renewable energy, afforestation, and carbon capture technology. India's target is Net Zero by 2070.
+        </div>
+      </div>
+      <div class="exam-q-box" style="margin-top:12px">
+        <div class="eq-label">🎯 Sample 10-Mark Answer</div>
+        <div class="eq-q">Q: Why is limiting global warming to 1.5°C important?</div>
+        <div class="eq-a">
+          Limiting warming to 1.5°C is important because: (1) It reduces the frequency and intensity of extreme weather events like floods, droughts, and heat waves. (2) It protects coastal areas from sea-level rise. (3) It preserves ecosystems and biodiversity from collapse. (4) It improves food and water security for billions of people. (5) It reduces the risk of irreversible climate tipping points. The Paris Agreement (2015) sets this target as the global goal.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     QUICK REVISION
+════════════════════════════════════════════ -->
+<div id="quickrev" style="margin-top:16px">
+  <h2 style="text-align:center;color:#fff;margin-bottom:20px;font-size:1.5rem">
+    ⚡ Quick Revision — All 8 Units
+  </h2>
+  <div class="qr-grid">
+    <a class="qr-card bg-u1" href="#unit1"><div class="qrc-num">01</div><span class="qrc-icon">🌿</span><div class="qrc-label">Historical Human–Environment Interactions</div></a>
+    <a class="qr-card bg-u2" href="#unit2"><div class="qrc-num">02</div><span class="qrc-icon">💧</span><div class="qrc-label">Natural Resources</div></a>
+    <a class="qr-card bg-u3" href="#unit3"><div class="qrc-num">03</div><span class="qrc-icon">🌳</span><div class="qrc-label">Ecosystems &amp; Biodiversity</div></a>
+    <a class="qr-card bg-u4" href="#unit4"><div class="qrc-num">04</div><span class="qrc-icon">☁️</span><div class="qrc-label">Pollution &amp; Health</div></a>
+    <a class="qr-card bg-u5" href="#unit5"><div class="qrc-num">05</div><span class="qrc-icon">🌐</span><div class="qrc-label">Environmental Issues &amp; Scales</div></a>
+    <a class="qr-card bg-u6" href="#unit6"><div class="qrc-num">06</div><span class="qrc-icon">🌡️</span><div class="qrc-label">Climate Change</div></a>
+    <a class="qr-card bg-u7" href="#unit7"><div class="qrc-num">07</div><span class="qrc-icon">⚙️</span><div class="qrc-label">Environmental Management</div></a>
+    <a class="qr-card bg-u8" href="#unit8"><div class="qrc-num">08</div><span class="qrc-icon">📜</span><div class="qrc-label">International Treaties &amp; Legislation</div></a>
+    <a class="qr-card" style="background:linear-gradient(135deg,#f6d365,#fda085);color:#7b3f00" href="#impnotes"><div class="qrc-num" style="color:#7b3f00">⭐</div><span class="qrc-icon">📌</span><div class="qrc-label">Important Exam Notes</div></a>
+    <a class="qr-card" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb);color:#4a1c6f" href="#tenmark"><div class="qrc-num" style="color:#4a1c6f">🎯</div><span class="qrc-icon">✍️</span><div class="qrc-label">10-Mark Questions</div></a>
+  </div>
+</div>
+
+<div style="text-align:center;color:rgba(255,255,255,.6);margin-top:40px;font-size:.85rem;padding:20px">
+  📚 Environmental Science · 8 Units + Important Exam Notes + 10-Mark Questions<br>
+  <span style="font-size:.75rem">Click unit headers to expand/collapse · Scroll up to revise any section</span>
+</div>
+
+</div>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
+
+<script>
+  function toggleUnit(header) {
+    const body = header.nextElementSibling;
+    const btn  = header.querySelector('.toggle-btn');
+    if (body.classList.contains('collapsed')) {
+      body.classList.remove('collapsed');
+      btn.style.transform = 'rotate(0deg)';
+    } else {
+      body.classList.add('collapsed');
+      btn.style.transform = 'rotate(-90deg)';
+    }
+  }
+
+  function toggleImp(header) {
+    const body = header.nextElementSibling;
+    const btn  = header.querySelector('.toggle-btn');
+    if (body.classList.contains('collapsed')) {
+      body.classList.remove('collapsed');
+      btn.style.transform = 'rotate(0deg)';
+    } else {
+      body.classList.add('collapsed');
+      btn.style.transform = 'rotate(-90deg)';
+    }
+  }
+
+  function toggleTenMark(header) {
+    const body = header.nextElementSibling;
+    const btn  = header.querySelector('.toggle-btn');
+    if (body.classList.contains('collapsed')) {
+      body.classList.remove('collapsed');
+      btn.style.transform = 'rotate(0deg)';
+    } else {
+      body.classList.add('collapsed');
+      btn.style.transform = 'rotate(-90deg)';
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    const scrollTop    = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    document.getElementById('progress-bar').style.width = (scrollTop / scrollHeight * 100) + '%';
+    const btn = document.getElementById('scrollTop');
+    btn.style.display = scrollTop > 400 ? 'flex' : 'none';
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.06 });
+
+  document.querySelectorAll('.unit-card, .imp-unit-card, .tenmark-wrap').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity .5s ease, transform .5s ease';
+    observer.observe(card);
+  });
+
+  const navLinks = document.querySelectorAll('.nav-wrap a');
+  window.addEventListener('scroll', () => {
+    const pos = window.scrollY + 120;
+    navLinks.forEach(link => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        const top = target.offsetTop;
+        const bot = top + target.offsetHeight;
+        if (pos >= top && pos < bot) {
+          link.style.background = 'rgba(255,255,255,.18)';
+          link.style.color = '#fff';
+        } else {
+          link.style.background = '';
+          link.style.color = '';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
